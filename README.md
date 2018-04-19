@@ -1,2 +1,3 @@
-# Baze
-Repozitorij za projekt pri predmetu OPB. Nismo si še izbrale o čemu bomo delale projekt.
+# Najbolje ocenjene knjige
+Repozitorij za projekt pri predmetu OPB.
+![alt tag](https://github.com/aniiiim/Najbolje-ocenjene-knjige/blob/master/ER-diagram.png)
