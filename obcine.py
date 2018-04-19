@@ -10,17 +10,15 @@ import csv
 
 def ustvari_tabelo():
     cur.execute("""
-        CREATE TABLE obcina (
-            id SERIAL PRIMARY KEY,
-            ime TEXT NOT NULL,
-            povrsina NUMERIC NOT NULL,
-            prebivalstvo INTEGER NOT NULL,
-            gostota NUMERIC NOT NULL,
-            naselja INTEGER NOT NULL,
-            ustanovitev INTEGER,
-            pokrajina TEXT NOT NULL,
-            stat_regija TEXT NOT NULL,
-            odcepitev TEXT
+        CREATE TABLE books (
+            book_id SERIAL PRIMARY KEY,
+            isbn NOT NULL
+            authors TEXT NOT NULL,
+            original_publication_year NUMERIC NOT NULL,
+            original_title TEXT NOT NULL,
+            title TEXT NOT NULL,
+            average_rating NUMERIC NOT NULL,
+            ratings_count NUMERIC NOT NULL
         );
     """)
     conn.commit()
@@ -47,6 +45,18 @@ def uvozi_podatke():
             rid, = cur.fetchone()
             print("Uvožena občina %s z ID-jem %d" % (r[0], rid))
     conn.commit()
+
+def prebivalci(stevilo):
+    cur.execute("""
+        SELECT * FROM obcina
+        WHERE prebivalstvo >= %s
+    """,[stevilo])
+    return cur.fetchall()
+##    for r in cur:
+##        print(r["ime"])
+        #namesto returna lahko tud z for zanko
+
+#od baze ze odvežeš conn.close()
 
 conn = psycopg2.connect(database=auth.db, host=auth.host, user=auth.user, password=auth.password)
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
