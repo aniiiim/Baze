@@ -54,7 +54,7 @@ def uvozi_podatke():
                 INSERT INTO books
                 (books_id, goodread_books_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, avarage_rating, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
-                RETURNING id
+                RETURNING books_id
             """, r)
             rid, = cur.fetchone()
             print("Uvožena books %s z ID-jem %d" % (r[0], rid))
