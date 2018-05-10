@@ -1,6 +1,6 @@
 # uvozimo ustrezne podatke za povezavo
 import auth
-auth.db = "sem2018_%s" % auth.user
+# auth.db = "sem2018_%s" % auth.user
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
