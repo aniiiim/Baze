@@ -1,12 +1,19 @@
 # uvozimo ustrezne podatke za povezavo
 import auth
-# auth.db = "sem2018_%s" % auth.user
+auth.db = "sem2018_anamarijam" #% auth.user
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo problemov s šumniki
 
 import csv
+
+def password_md5(s):
+    """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
+       kodirana s to funkcijo."""
+    h = hashlib.md5()
+    h.update(s.encode('utf-8'))
+return h.hexdigest()
 
 def ustvari_tabelo():
     cur.execute("""
@@ -59,6 +66,22 @@ def uvozi_podatke():
             rid, = cur.fetchone()
             print("Uvožena books %s z ID-jem %d" % (r[0], rid))
     conn.commit()
+    
+def pravice():
+    cur.execute("""
+        GRANT ALL ON ALL TABLES IN SCHEMA public TO tejar;
+        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO tejar;
+        GRANT CONNECT ON DATABASE sem2018_anamarijam TO tejar;
+        GRANT ALL ON ALL TABLES IN SCHEMA public TO katarinak;
+        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO katarinak;
+        GRANT CONNECT ON DATABASE sem2018_anamarijam TO katarinak;
+        GRANT ALL ON SCHEMA public TO katarinak;
+        GRANT ALL ON SCHEMA public TO tejar;
+        GRANT ALL ON SCHEMA public TO javnost;
+        GRANT SELECT ON ALL TABLES IN SCHEMA public TO javnost;
+    """)
+    conn.commit()
+
 
 ##def prebivalci(stevilo):
 ##    cur.execute("""
