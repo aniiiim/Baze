@@ -1,0 +1,57 @@
+[submodule "oddaje/2016/Profit"]
+	path = oddaje/2016/Profit
+	url = https://github.com/vrle/Profit.git
+[submodule "oddaje/2016/fan-fiction-stats"]
+	path = oddaje/2016/fan-fiction-stats
+	url = https://bitbucket.org/Emayla/fan-fiction-stats.git
+[submodule "oddaje/2016/Music"]
+	path = oddaje/2016/Music
+	url = https://bitbucket.org/opbteam/projekt.git
+[submodule "oddaje/2016/Sanjsko-potovanje"]
+	path = oddaje/2016/Sanjsko-potovanje
+	url = https://github.com/UrskaT/OPB_2016-Sanjsko_potovanje_nadOPB2014.git
+[submodule "oddaje/2016/Glasbene-lestvice"]
+	path = oddaje/2016/Glasbene-lestvice
+	url = https://github.com/damjanm/Glasbene-lestvice.git
+[submodule "oddaje/2016/Zlocini"]
+	path = oddaje/2016/Zlocini
+	url = https://bitbucket.org/Annch/gorile.git
+[submodule "oddaje/2016/Avtomobili"]
+	path = oddaje/2016/Avtomobili
+	url = https://github.com/qwer317/opbprojekt.git
+[submodule "oddaje/2017/Trgovina"]
+	path = oddaje/2017/Trgovina
+	url = https://github.com/MarvinHerzog/Trgovina.git
+[submodule "oddaje/2017/HearthStone"]
+	path = oddaje/2017/HearthStone
+	url = https://github.com/JanezRadescek/HearthStone.git
+[submodule "oddaje/2017/beernburger"]
+	path = oddaje/2017/beernburger
+	url = https://github.com/campovski/beernburger.git
+[submodule "oddaje/2017/Smucarski-center"]
+	path = oddaje/2017/Smucarski-center
+	url = https://github.com/KrusecN13/Smucarski-center.git
+[submodule "oddaje/2017/Formula-1"]
+	path = oddaje/2017/Formula-1
+	url = https://github.com/UrosKrampelj/Formula-1.git
+[submodule "oddaje/2017/Fuzbal"]
+	path = oddaje/2017/Fuzbal
+	url = https://github.com/GalDrnovsek/Fuzbal.git
+[submodule "oddaje/2017/Potovalni_prirocnik"]
+	path = oddaje/2017/Potovalni_prirocnik
+	url = https://github.com/rahlocutnacigra/Potovalni_prirocnik.git
+[submodule "oddaje/2017/prevozi"]
+	path = oddaje/2017/prevozi
+	url = https://github.com/nocmatic/prevozi.git
+[submodule "oddaje/2017/opb-projekt"]
+	path = oddaje/2017/opb-projekt
+	url = git@bitbucket.org:NaglicA12/opb-projekt.git
+[submodule "oddaje/2017/uganke"]
+	path = oddaje/2017/uganke
+	url = https://github.com/lukalajovic/uganke.git
+[submodule "oddaje/2017/Delnice"]
+	path = oddaje/2017/Delnice
+	url = https://github.com/EvaErzin/Delnice.git
+[submodule "oddaje/2017/TaborniskaBaza"]
+	path = oddaje/2017/TaborniskaBaza
+	url = https://github.com/markbaltic/TaborniskaBaza.git

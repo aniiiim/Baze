@@ -1,4 +1,5 @@
 # uvozimo ustrezne podatke za povezavo
+
 import auth
 auth.db = "sem2018_anamarijam" #% auth.user
 
@@ -13,7 +14,7 @@ def password_md5(s):
        kodirana s to funkcijo."""
     h = hashlib.md5()
     h.update(s.encode('utf-8'))
-return h.hexdigest()
+    return h.hexdigest()
 
 def ustvari_tabelo():
     cur.execute("""
@@ -47,7 +48,7 @@ def ustvari_tabelo():
 
 def pobrisi_tabelo():
     cur.execute("""
-        DROP TABLE books;
+        DROP TABLE IF EXISTS books CASCADE;
     """)
     conn.commit()
 
@@ -56,8 +57,9 @@ def uvozi_podatke():
         rd = csv.reader(f)
         next(rd) # izpusti naslovno vrstico
         for r in rd:
-            r = [None if x in ('', '-') else x for x in r]
-            cur.execute("""
+            #r = [None if x in ('', '-') else x for x in r]
+            for x in r:
+                cur.execute("""
                 INSERT INTO books
                 (books_id, goodread_books_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, avarage_rating, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
