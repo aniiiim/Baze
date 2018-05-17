@@ -20,15 +20,15 @@ def ustvari_tabelo():
     cur.execute("""
         CREATE TABLE books (
             book_id SERIAL PRIMARY KEY,
-            goodreads_book_id SERIAL NOT NULL,
-            best_book_id SERIAL NOT NULL,
-            work_id SERIAL NOT NULL,
+            goodreads_book_id NUMERIC NOT NULL,
+            best_book_id NUMERIC NOT NULL,
+            work_id NUMERIC NOT NULL,
             books_count NUMERIC NOT NULL,
-            isbn NOT NULL,
-            isbn_13 NOT NULL,
+            isbn TEXT,
+            isbn_13 TEXT,
             authors TEXT NOT NULL,
             original_publication_year NUMERIC NOT NULL,
-            original_title TEXT NOT NULL,
+            original_title TEXT,
             title TEXT NOT NULL,
             language_code TEXT,
             average_rating NUMERIC NOT NULL,
@@ -57,12 +57,11 @@ def uvozi_podatke():
         rd = csv.reader(f)
         next(rd) # izpusti naslovno vrstico
         for r in rd:
-            #r = [None if x in ('', '-') else x for x in r]
-            for x in r:
-                cur.execute("""
+            r = [None if x in ('', '-') else x for x in r]
+            cur.execute("""
                 INSERT INTO books
-                (book_id, goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, avarage_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
+                (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
                 RETURNING books_id
             """, r)
             rid, = cur.fetchone()
