@@ -34,14 +34,14 @@ def ustvari_tabelo():
             average_rating NUMERIC NOT NULL,
             ratings_count NUMERIC NOT NULL,
             work_ratings_count NUMERIC NOT NULL,
-            work_text_reviews_count
+            work_text_reviews_count NUMERIC NOT NULL,
             ratings_1 NUMERIC,
             ratings_2 NUMERIC,
             ratings_3 NUMERIC,
             ratings_4 NUMERIC,
             ratings_5 NUMERIC,
             image_url TEXT,
-            small_image_url TEXT,
+            small_image_url TEXT
         );
     """)
     conn.commit()
@@ -61,7 +61,7 @@ def uvozi_podatke():
             for x in r:
                 cur.execute("""
                 INSERT INTO books
-                (books_id, goodread_books_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, avarage_rating, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
+                (book_id, goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, avarage_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
                 RETURNING books_id
             """, r)
