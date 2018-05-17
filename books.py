@@ -27,7 +27,7 @@ def ustvari_tabelo():
             isbn TEXT,
             isbn_13 TEXT,
             authors TEXT NOT NULL,
-            original_publication_year NUMERIC NOT NULL,
+            original_publication_year NUMERIC,
             original_title TEXT,
             title TEXT NOT NULL,
             language_code TEXT,
@@ -53,19 +53,26 @@ def pobrisi_tabelo():
     conn.commit()
 
 def uvozi_podatke():
-    with open("books.csv") as f:
-        rd = csv.reader(f)
+    with open("books.csv", encoding="UTF-8") as f:
+        #rd = UnicodeReader(f)
+        rd= csv.reader(f)
         next(rd) # izpusti naslovno vrstico
         for r in rd:
-            r = [None if x in ('', '-') else x for x in r]
-            cur.execute("""
-                INSERT INTO books
-                (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
-                RETURNING books_id
-            """, r)
-            rid, = cur.fetchone()
-            print("Uvožena books %s z ID-jem %d" % (r[0], rid))
+            try:
+                r = [None if x in ('', '-') else x for x in r]
+                r= r[1:(len(r))]
+                #print( r,len(r))
+                cur.execute("""
+                    INSERT INTO books
+                    (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
+                    RETURNING book_id
+                """, r)
+                rid, = cur.fetchone()
+                #print("Uvožena books %s z ID-jem %d" % (r[0], rid))
+            except Exception as ex:
+                print('Napaka:',r)
+                raise ex
     conn.commit()
     
 def pravice():
