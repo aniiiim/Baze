@@ -15,6 +15,9 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo prob
 # debug(True)
 static_dir = "./static"
 
+# Skrivnost za kodiranje cookijev
+secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
+
 ##@route("/static/<filename:path>")
 ##def static(filename):
 ##    """Splošna funkcija, ki servira vse statične datoteke iz naslova
@@ -45,9 +48,61 @@ def sass(filepath):
 def index():
     return template('index.html')
 
-@get('/books/<bookid>/')
-def single(bookid):
-    return template('single.html')
+def password_md5(s):
+    """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
+       kodirana s to funkcijo."""
+    h = hashlib.md5()
+    h.update(s.encode('utf-8'))
+    return h.hexdigest()
+
+# Funkcija, ki v cookie spravi sporocilo
+def set_sporocilo(tip, vsebina):
+    bottle.response.set_cookie('message', (tip, vsebina), path='/', secret=secret)
+
+# Funkcija, ki iz cookija dobi sporočilo, če je
+def get_sporocilo():
+    sporocilo = bottle.request.get_cookie('message', default=None, secret=secret)
+    bottle.response.delete_cookie('message')
+    return sporocilo
+
+def get_user(auto_login = True):
+    """Poglej cookie in ugotovi, kdo je prijavljeni uporabnik,
+       vrni njegov username in ime. Če ni prijavljen, presumeri
+       na stran za prijavo ali vrni None (advisno od auto_login).
+    """
+    # Dobimo username iz piškotka
+    username = bottle.request.get_cookie('username', secret=secret)
+    # Preverimo, ali ta uporabnik obstaja
+    if username is not None:
+        c = baza.cursor()
+        c.execute("SELECT username, ime FROM uporabnik WHERE username=?",
+                  [username])
+        r = c.fetchone()
+        c.close ()
+        if r is not None:
+            # uporabnik obstaja, vrnemo njegove podatke
+            return r
+    # Če pridemo do sem, uporabnik ni prijavljen, naredimo redirect
+    if auto_login:
+        bottle.redirect('/login/')
+    else:
+return None
+
+def main():
+        """Glavna stran."""
+    # Iz cookieja dobimo uporabnika (ali ga preusmerimo na login, če
+    # nima cookija)
+    (username, ime) = get_user()
+    # Morebitno sporočilo za uporabnika
+    sporocilo = get_sporocilo()
+    # Seznam zadnjih 10 tračev
+    ts = traci()
+    # Vrnemo predlogo za glavno stran
+    return bottle.template("index.html",
+                           ime=ime,
+                           username=username,
+                           traci=ts,
+                           sporocilo=sporocilo)
 ##
 ##@get('/transakcije/:x/')
 ##def transakcije(x):

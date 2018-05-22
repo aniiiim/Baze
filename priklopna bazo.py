@@ -49,41 +49,13 @@ def ustvari_tabelo():
             book_id NUMERIC NOT NULL,
             rating NUMERIC NOT NULL
             );
-
-            CREATE TABLE uporabnik (
-            user_id SERIAL PRIMARY KEY,
-            username TEXT NOT NULL,
-            password TEXT NOT NULL
-            );
     """)
     conn.commit()
 
 def pobrisi_tabelo():
     cur.execute("""
         DROP TABLE IF EXISTS books CASCADE;
-        DROP TABLE IF EXISTS ratings CASCADE;
-        DROP TABLE IF EXISTS uporabnik CASCADE;
     """)
-    conn.commit()
-
-def uvozi_podatke():
-    with open("books.csv", encoding="UTF-8") as f:
-        rd= csv.reader(f)
-        next(rd) # izpusti naslovno vrstico
-        for r in rd:
-            try:
-                r = [None if x in ('', '-') else x for x in r]
-                r= r[1:(len(r))]
-                cur.execute("""
-                    INSERT INTO books
-                    (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
-                    RETURNING book_id
-                """, r)
-                rid, = cur.fetchone()
-            except Exception as ex:
-                print('Napaka:',r)
-                raise ex
     conn.commit()
 
 def uvozi_ratings():
@@ -108,6 +80,27 @@ def uvozi_ratings():
                 raise ex
     conn.commit()
 
+
+def uvozi_podatke():
+    with open("books.csv", encoding="UTF-8") as f:
+        rd= csv.reader(f)
+        next(rd) # izpusti naslovno vrstico
+        for r in rd:
+            try:
+                r = [None if x in ('', '-') else x for x in r]
+                r= r[1:(len(r))]
+                cur.execute("""
+                    INSERT INTO ratings
+                    (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
+                    RETURNING book_id
+                """, r)
+                rid, = cur.fetchone()
+            except Exception as ex:
+                print('Napaka:',r)
+                raise ex
+    conn.commit()
+     
 def pravice():
     cur.execute("""
         GRANT ALL ON ALL TABLES IN SCHEMA public TO tejar;
