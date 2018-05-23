@@ -9,13 +9,6 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo prob
 
 import csv
 
-def password_md5(s):
-    """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
-       kodirana s to funkcijo."""
-    h = hashlib.md5()
-    h.update(s.encode('utf-8'))
-    return h.hexdigest()
-
 def ustvari_tabelo():
     cur.execute("""
         CREATE TABLE books (
@@ -45,8 +38,8 @@ def ustvari_tabelo():
             );
             
             CREATE TABLE ratings (
-            user_id SERIAL PRIMARY KEY,
-            book_id NUMERIC NOT NULL,
+            user_id NUMERIC,
+            book_id INTEGER REFERENCES books(book_id),
             rating NUMERIC NOT NULL
             );
 
@@ -55,6 +48,17 @@ def ustvari_tabelo():
             username TEXT NOT NULL,
             password TEXT NOT NULL
             );
+
+            CREATE TABLE to_read (
+            user_id NUMERIC,
+            book_id INTEGER REFERENCES books(book_id)
+            );
+            
+            CREATE TABLE tags (
+            tag_id SERIAL PRIMARY KEY,
+            tag_name TEXT
+            );
+
     """)
     conn.commit()
 
@@ -63,6 +67,8 @@ def pobrisi_tabelo():
         DROP TABLE IF EXISTS books CASCADE;
         DROP TABLE IF EXISTS ratings CASCADE;
         DROP TABLE IF EXISTS uporabnik CASCADE;
+        DROP TABLE IF EXISTS to_read CASCADE;
+        DROP TABLE IF EXISTS tags CASCADE;
     """)
     conn.commit()
 
@@ -108,6 +114,52 @@ def uvozi_ratings():
                 raise ex
     conn.commit()
 
+def uvozi_to_read():
+    with open("to_read.csv", encoding="UTF-8") as f:
+        #rd = UnicodeReader(f)
+        rd= csv.reader(f)
+        next(rd) # izpusti naslovno vrstico
+        i=0
+        for r in rd:
+            i=i+1
+            try:
+                r = [None if x in ('', '-') else x for x in r]
+                r= r[1:(len(r))]
+                #print( r,len(r))
+                cur.execute("""
+                    INSERT INTO to_read
+                    (user_id)
+                    VALUES (%s)
+                    RETURNING book_id
+                """, r)
+                rid, = cur.fetchone()
+            except Exception as ex:
+                print('Napaka:',r,i)
+                raise ex
+    conn.commit()
+    
+def uvozi_tags():
+    with open("tags.csv", encoding="UTF-8") as f:
+        #rd = UnicodeReader(f)
+        rd= csv.reader(f)
+        next(rd) # izpusti naslovno vrstico
+        for r in rd:
+            try:
+                r = [None if x in ('', '-') else x for x in r]
+                r= r[1:(len(r))]
+                #print( r,len(r))
+                cur.execute("""
+                    INSERT INTO tags
+                    (tag_name)
+                    VALUES (%s)
+                    RETURNING tag_id
+                """, r)
+                rid, = cur.fetchone()
+            except Exception as ex:
+                print('Napaka:',r)
+                raise ex
+    conn.commit()
+    
 def pravice():
     cur.execute("""
         GRANT ALL ON ALL TABLES IN SCHEMA public TO tejar;
