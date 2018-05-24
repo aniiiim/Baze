@@ -1,286 +1,514 @@
-
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Magazine &mdash; Free Fully Responsive HTML5 Bootstrap Template by FREEHTML5.co</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	<meta name="author" content="FREEHTML5.CO" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Twitter Bootstrap shopping cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- Customize styles -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- font awesome styles -->
+	<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<!--[if IE 7]>
+			<link href="css/font-awesome-ie7.min.css" rel="stylesheet">
+		<![endif]-->
 
-  <!-- 
-	//////////////////////////////////////////////////////
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
-
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
-	<!-- Google Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700' rel='stylesheet' type='text/css'>
-	<!-- Animate -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon -->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-
-	<link rel="stylesheet" href="css/style.css">
-
-
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
-	</head>
-	<body>
-	<div id="fh5co-offcanvas">
-		<a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="icon-cross3"></i> <span>Close</span></span></a>
-		<div class="fh5co-bio">
-			<figure>
-				<img src="images/person1.jpg" alt="Free HTML5 Bootstrap Template" class="img-responsive">
-			</figure>
-			<h3 class="heading">About Me</h3>
-			<h2>Emily Tran Le</h2>
-			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-			<ul class="fh5co-social">
-				<li><a href="#"><i class="icon-twitter"></i></a></li>
-				<li><a href="#"><i class="icon-facebook"></i></a></li>
-				<li><a href="#"><i class="icon-instagram"></i></a></li>
-			</ul>
-		</div>
-
-		<div class="fh5co-menu">
-			<div class="fh5co-box">
-				<h3 class="heading">Categories</h3>
-				<ul>
-					<li><a href="#">Travel</a></li>
-					<li><a href="#">Style</a></li>
-					<li><a href="#">Photography</a></li>
-					<li><a href="#">Food &amp; Drinks</a></li>
-					<li><a href="#">Culture</a></li>
-				</ul>
-			</div>
-			<div class="fh5co-box">
-				<h3 class="heading">Search</h3>
-				<form action="#">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Type a keyword">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- END #fh5co-offcanvas -->
-	<header id="fh5co-header">
-		
-		<div class="container-fluid">
-
-			<div class="row">
-				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-				<ul class="fh5co-social">
-					<li><a href="#"><i class="icon-twitter"></i></a></li>
-					<li><a href="#"><i class="icon-facebook"></i></a></li>
-					<li><a href="#"><i class="icon-instagram"></i></a></li>
-				</ul>
-				<div class="col-lg-12 col-md-12 text-center">
-					<h1 id="fh5co-logo"><a href="index.html">Magazine <sup>TM</sup></a></h1>
+	<!-- Favicons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+  </head>
+<body>
+<!-- 
+	Upper Header Section 
+-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="topNav">
+		<div class="container">
+			<div class="alignR">
+				<div class="pull-left socialNw">
+					<a href="#"><span class="icon-twitter"></span></a>
+					<a href="#"><span class="icon-facebook"></span></a>
+					<a href="#"><span class="icon-youtube"></span></a>
+					<a href="#"><span class="icon-tumblr"></span></a>
 				</div>
-
+				<a class="active" href="index.html"> <span class="icon-home"></span> Home</a> 
+				<a href="#"><span class="icon-user"></span> My Account</a> 
+				<a href="register.html"><span class="icon-edit"></span> Free Register </a> 
+				<a href="contact.html"><span class="icon-envelope"></span> Contact us</a>
+				<a href="cart.html"><span class="icon-shopping-cart"></span> 2 Item(s) - <span class="badge badge-warning"> $448.42</span></a>
 			</div>
-		
-		</div>
-
-	</header>
-	<!-- END #fh5co-header -->
-	<div class="container-fluid">
-		<div class="row fh5co-post-entry">
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_1.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">We Eat and Drink All Night</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_2.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">Beef Steak at Guatian Restaurant</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-xs-block"></div>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_3.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">An Overlooking River at the East Cost</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_4.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">A Wildlife In The Mountain of India</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_5.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Photography</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">We Took A Photo</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_6.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">A Modernize Huge and Beautiful Building</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-xs-block"></div>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_7.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Food &amp; Drinks</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">Enjoying the Native Juice Drink in Brazil</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_8.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">Boat Travel in The Vietnam River</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
-
-
-
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_1.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">We Eat and Drink All Night</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_2.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Food &amp; Drink</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">Beef Steak at Guatian Restaurant</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-xs-block"></div>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_3.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">An Overlooking River at the East Cost</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_4.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">A Wildlife In The Mountain of India</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_5.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Photography</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">We Took A Photo</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_6.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">A Modernize Huge and Beautiful Building</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-xs-block"></div>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_7.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Food &amp; Drinks</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">Enjoying the Native Juice Drink in Brazil</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-				<figure>
-					<a href="single.html"><img src="images/pic_8.jpg" alt="Image" class="img-responsive"></a>
-				</figure>
-				<span class="fh5co-meta"><a href="single.html">Travel</a>, <a href="single.html">Style</a></span>
-				<h2 class="fh5co-article-title"><a href="single.html">Boat Travel in The Vietnam River</a></h2>
-				<span class="fh5co-meta fh5co-date">March 6th, 2016</span>
-			</article>
-			<div class="clearfix visible-xs-block"></div>
 		</div>
 	</div>
+</div>
 
-	<footer id="fh5co-footer">
-		<p><small>&copy; 2016. Magazine Free HTML5. All Rights Reserverd. <br> Designed by <a href="http://freehtml5.co" target="_blank">FREEHTML5.co</a>  Demo Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a></small></p>
-	</footer>
+<!--
+Lower Header Section 
+-->
+<div class="container">
+<div id="gototop"> </div>
+<header id="header">
+<div class="row">
+	<div class="span4">
+	<h1>
+	<a class="logo" href="index.html"><span>Twitter Bootstrap ecommerce template</span> 
+		<img src="assets/img/logo-bootstrap-shoping-cart.png" alt="bootstrap sexy shop">
+	</a>
+	</h1>
+	</div>
+	<div class="span4">
+	<div class="offerNoteWrapper">
+	<h1 class="dotmark">
+	<i class="icon-cut"></i>
+	Twitter Bootstrap shopping cart HTML template is available @ $14
+	</h1>
+	</div>
+	</div>
+	<div class="span4 alignR">
+	<p><br> <strong> Support (24/7) :  0800 1234 678 </strong><br><br></p>
+	<span class="btn btn-mini">[ 2 ] <span class="icon-shopping-cart"></span></span>
+	<span class="btn btn-warning btn-mini">$</span>
+	<span class="btn btn-mini">&pound;</span>
+	<span class="btn btn-mini">&euro;</span>
+	</div>
+</div>
+</header>
 
+<!--
+Navigation Bar Section 
+-->
+<div class="navbar">
+	  <div class="navbar-inner">
+		<div class="container">
+		  <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </a>
+		  <div class="nav-collapse">
+			<ul class="nav">
+			  <li class="active"><a href="index.html">Home	</a></li>
+			  <li class=""><a href="list-view.html">List View</a></li>
+			  <li class=""><a href="grid-view.html">Grid View</a></li>
+			  <li class=""><a href="three-col.html">Three Column</a></li>
+			  <li class=""><a href="four-col.html">Four Column</a></li>
+			  <li class=""><a href="general.html">General Content</a></li>
+			</ul>
+			<form action="#" class="navbar-search pull-left">
+			  <input type="text" placeholder="Search" class="search-query span2">
+			</form>
+			<ul class="nav pull-right">
+			<li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
+				<div class="dropdown-menu">
+				<form class="form-horizontal loginFrm">
+				  <div class="control-group">
+					<input type="text" class="span2" id="inputEmail" placeholder="Email">
+				  </div>
+				  <div class="control-group">
+					<input type="password" class="span2" id="inputPassword" placeholder="Password">
+				  </div>
+				  <div class="control-group">
+					<label class="checkbox">
+					<input type="checkbox"> Remember me
+					</label>
+					<button type="submit" class="shopBtn btn-block">Sign in</button>
+				  </div>
+				</form>
+				</div>
+			</li>
+			</ul>
+		  </div>
+		</div>
+	  </div>
+	</div>
+<!-- 
+Body Section 
+-->
+	<div class="row">
+<div id="sidebar" class="span3">
+<div class="well well-small">
+	<ul class="nav nav-list">
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Fashion</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Watches</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Fine Jewelry</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Fashion Jewelry</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Engagement & Wedding</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Men's Jewelry</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Vintage & Antique</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Loose Diamonds </a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Loose Beads</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>See All Jewelry & Watches</a></li>
+		<li style="border:0"> &nbsp;</li>
+		<li> <a class="totalInCart" href="cart.html"><strong>Total Amount  <span class="badge badge-warning pull-right" style="line-height:18px;">$448.42</span></strong></a></li>
+	</ul>
+</div>
 
+			  <div class="well well-small alert alert-warning cntr">
+				  <h2>50% Discount</h2>
+				  <p> 
+					 only valid for online order. <br><br><a class="defaultBtn" href="#">Click here </a>
+				  </p>
+			  </div>
+			  <div class="well well-small" ><a href="#"><img src="assets/img/paypal.jpg" alt="payment method paypal"></a></div>
+			
+			<a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+			<br>
+			<br>
+			<ul class="nav nav-list promowrapper">
+			<li>
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<img src="assets/img/bootstrap-ecommerce-templates.png" alt="bootstrap ecommerce templates">
+				<div class="caption">
+				  <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+				</div>
+			  </div>
+			</li>
+			<li style="border:0"> &nbsp;</li>
+			<li>
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<img src="assets/img/shopping-cart-template.png" alt="shopping cart template">
+				<div class="caption">
+				  <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+				</div>
+			  </div>
+			</li>
+			<li style="border:0"> &nbsp;</li>
+			<li>
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<img src="assets/img/bootstrap-template.png" alt="bootstrap template">
+				<div class="caption">
+				  <h4><a class="defaultBtn" href="product_details.html">VIEW</a> <span class="pull-right">$22.00</span></h4>
+				</div>
+			  </div>
+			</li>
+		  </ul>
+
+	</div>
+	<div class="span9">
+	<div class="well np">
+		<div id="myCarousel" class="carousel slide homCar">
+            <div class="carousel-inner">
+			  <div class="item">
+                <img style="width:100%" src="assets/img/bootstrap_free-ecommerce.png" alt="bootstrap ecommerce templates">
+                <div class="carousel-caption">
+                      <h4>Bootstrap shopping cart</h4>
+                      <p><span>Very clean simple to use</span></p>
+                </div>
+              </div>
+			  <div class="item">
+                <img style="width:100%" src="assets/img/carousel1.png" alt="bootstrap ecommerce templates">
+                <div class="carousel-caption">
+                      <h4>Bootstrap Ecommerce template</h4>
+                      <p><span>Highly Google seo friendly</span></p>
+                </div>
+              </div>
+			  <div class="item active">
+                <img style="width:100%" src="assets/img/carousel3.png" alt="bootstrap ecommerce templates">
+                <div class="carousel-caption">
+                      <h4>Twitter Bootstrap cart</h4>
+                      <p><span>Very easy to integrate and expand.</span></p>
+                </div>
+              </div>
+              <div class="item">
+                <img style="width:100%" src="assets/img/bootstrap-templates.png" alt="bootstrap templates">
+                <div class="carousel-caption">
+                      <h4>Bootstrap templates integration</h4>
+                      <p><span>Compitable to many more opensource cart</span></p>
+                </div>
+              </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+          </div>
+        </div>
+<!--
+New Products
+-->
+	<div class="well well-small">
+	<h3>New Products </h3>
+	<hr class="soften"/>
+		<div class="row-fluid">
+		<div id="newProductCar" class="carousel slide">
+            <div class="carousel-inner">
+			<div class="item active">
+			  <ul class="thumbnails">
+				<li class="span3">
+				<div class="thumbnail">
+					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+					<a href="#" class="tag"></a>
+					<a href="product_details.html"><img src="assets/img/bootstrap-ring.png" alt="bootstrap-ring"></a>
+				</div>
+				</li>
+				<li class="span3">
+				  <div class="thumbnail">
+					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+					<a href="#" class="tag"></a>
+					<a  href="product_details.html"><img src="assets/img/i.jpg" alt=""></a>
+				  </div>
+				</li>
+				<li class="span3">
+				  <div class="thumbnail">
+					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+					<a href="#" class="tag"></a>
+					<a  href="product_details.html"><img src="assets/img/g.jpg" alt=""></a>
+				  </div>
+				</li>
+				<li class="span3">
+				  <div class="thumbnail">
+					<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+					<a  href="product_details.html"><img src="assets/img/s.png" alt=""></a>
+				  </div>
+				</li>
+			  </ul>
+			  </div>
+		   <div class="item">
+		  <ul class="thumbnails">
+			<li class="span3">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/i.jpg" alt=""></a>
+			  </div>
+			</li>
+			<li class="span3">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/f.jpg" alt=""></a>
+			  </div>
+			</li>
+			<li class="span3">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/h.jpg" alt=""></a>
+			  </div>
+			</li>
+			<li class="span3">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/j.jpg" alt=""></a>
+			  </div>
+			</li>
+		  </ul>
+		  </div>
+		   </div>
+		  <a class="left carousel-control" href="#newProductCar" data-slide="prev">&lsaquo;</a>
+            <a class="right carousel-control" href="#newProductCar" data-slide="next">&rsaquo;</a>
+		  </div>
+		  </div>
+		<div class="row-fluid">
+		  <ul class="thumbnails">
+			<li class="span4">
+			  <div class="thumbnail">
+				 
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a href="product_details.html"><img src="assets/img/b.jpg" alt=""></a>
+				<div class="caption cntr">
+					<p>Manicure & Pedicure</p>
+					<p><strong> $22.00</strong></p>
+					<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
+					<div class="actionList">
+						<a class="pull-left" href="#">Add to Wish List </a> 
+						<a class="pull-left" href="#"> Add to Compare </a>
+					</div> 
+					<br class="clr">
+				</div>
+			  </div>
+			</li>
+			<li class="span4">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a href="product_details.html"><img src="assets/img/c.jpg" alt=""></a>
+				<div class="caption cntr">
+					<p>Manicure & Pedicure</p>
+					<p><strong> $22.00</strong></p>
+					<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
+					<div class="actionList">
+						<a class="pull-left" href="#">Add to Wish List </a> 
+						<a class="pull-left" href="#"> Add to Compare </a>
+					</div> 
+					<br class="clr">
+				</div>
+			  </div>
+			</li>
+			<li class="span4">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a href="product_details.html"><img src="assets/img/a.jpg" alt=""></a>
+				<div class="caption cntr">
+					<p>Manicure & Pedicure</p>
+					<p><strong> $22.00</strong></p>
+					<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
+					<div class="actionList">
+						<a class="pull-left" href="#">Add to Wish List </a> 
+						<a class="pull-left" href="#"> Add to Compare </a>
+					</div> 
+					<br class="clr">
+				</div>
+			  </div>
+			</li>
+		  </ul>
+		</div>
+	</div>
+	<!--
+	Featured Products
+	-->
+		<div class="well well-small">
+		  <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Featured Products  </h3>
+		  <hr class="soften"/>
+		  <div class="row-fluid">
+		  <ul class="thumbnails">
+			<li class="span4">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/d.jpg" alt=""></a>
+				<div class="caption">
+				  <h5>Manicure & Pedicure</h5>
+				  <h4>
+					  <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
+					  <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
+					  <span class="pull-right">$22.00</span>
+				  </h4>
+				</div>
+			  </div>
+			</li>
+			<li class="span4">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/e.jpg" alt=""></a>
+				<div class="caption">
+				  <h5>Manicure & Pedicure</h5>
+				  <h4>
+					  <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
+					  <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
+					  <span class="pull-right">$22.00</span>
+				  </h4>
+				</div>
+			  </div>
+			</li>
+			<li class="span4">
+			  <div class="thumbnail">
+				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a  href="product_details.html"><img src="assets/img/f.jpg" alt=""/></a>
+				<div class="caption">
+				  <h5>Manicure & Pedicure</h5>
+				  <h4>
+					  <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
+					  <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
+					  <span class="pull-right">$22.00</span>
+				  </h4>
+				</div>
+			  </div>
+			</li>
+		  </ul>	
+	</div>
+	</div>
 	
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Main JS -->
-	<script src="js/main.js"></script>
+	<div class="well well-small">
+	<a class="btn btn-mini pull-right" href="#">View more <span class="icon-plus"></span></a>
+	Popular Products 
+	</div>
+	<hr>
+	<div class="well well-small">
+	<a class="btn btn-mini pull-right" href="#">View more <span class="icon-plus"></span></a>
+	Best selling Products 
+	</div>
+	</div>
+	</div>
+<!-- 
+Clients 
+-->
+<section class="our_client">
+	<hr class="soften"/>
+	<h4 class="title cntr"><span class="text">Manufactures</span></h4>
+	<hr class="soften"/>
+	<div class="row">
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/1.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/2.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/3.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/4.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/5.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/6.png"></a>
+		</div>
+	</div>
+</section>
 
-	</body>
+<!--
+Footer
+-->
+<footer class="footer">
+<div class="row-fluid">
+<div class="span2">
+<h5>Your Account</h5>
+<a href="#">YOUR ACCOUNT</a><br>
+<a href="#">PERSONAL INFORMATION</a><br>
+<a href="#">ADDRESSES</a><br>
+<a href="#">DISCOUNT</a><br>
+<a href="#">ORDER HISTORY</a><br>
+ </div>
+<div class="span2">
+<h5>Iinformation</h5>
+<a href="contact.html">CONTACT</a><br>
+<a href="#">SITEMAP</a><br>
+<a href="#">LEGAL NOTICE</a><br>
+<a href="#">TERMS AND CONDITIONS</a><br>
+<a href="#">ABOUT US</a><br>
+ </div>
+<div class="span2">
+<h5>Our Offer</h5>
+<a href="#">NEW PRODUCTS</a> <br>
+<a href="#">TOP SELLERS</a><br>
+<a href="#">SPECIALS</a><br>
+<a href="#">MANUFACTURERS</a><br>
+<a href="#">SUPPLIERS</a> <br/>
+ </div>
+ <div class="span6">
+<h5>The standard chunk of Lorem</h5>
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
+ those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et 
+ Malorum" by Cicero are also reproduced in their exact original form, 
+accompanied by English versions from the 1914 translation by H. Rackham.
+ </div>
+ </div>
+</footer>
+</div><!-- /container -->
+
+<div class="copyright">
+<div class="container">
+	<p class="pull-right">
+		<a href="#"><img src="assets/img/maestro.png" alt="payment"></a>
+		<a href="#"><img src="assets/img/mc.png" alt="payment"></a>
+		<a href="#"><img src="assets/img/pp.png" alt="payment"></a>
+		<a href="#"><img src="assets/img/visa.png" alt="payment"></a>
+		<a href="#"><img src="assets/img/disc.png" alt="payment"></a>
+	</p>
+	<span>Copyright &copy; 2013<br> bootstrap ecommerce shopping template</span>
+</div>
+</div>
+<a href="#" class="gotop"><i class="icon-double-angle-up"></i></a>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.easing-1.3.min.js"></script>
+    <script src="assets/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+    <script src="assets/js/shop.js"></script>
+  </body>
 </html>
-
