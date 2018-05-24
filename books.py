@@ -43,11 +43,7 @@ def ustvari_tabelo():
             rating NUMERIC NOT NULL
             );
 
-            CREATE TABLE uporabnik (
-            user_id SERIAL PRIMARY KEY,
-            username TEXT NOT NULL,
-            password TEXT NOT NULL
-            );
+            
 
             CREATE TABLE to_read (
             user_id NUMERIC,
@@ -62,14 +58,31 @@ def ustvari_tabelo():
     """)
     conn.commit()
 
+def ustvari_uporabnik():
+    cur.execute ("""
+       CREATE TABLE uporabnik (
+            user_id SERIAL PRIMARY KEY,
+            username TEXT NOT NULL,
+            ime TEXT NOT NULL,
+            priimek TEXT NOT NULL,
+            password TEXT NOT NULL
+            );
+      """ )
+    conn.commit()
+    
 def pobrisi_tabelo():
     cur.execute("""
         DROP TABLE IF EXISTS books CASCADE;
         DROP TABLE IF EXISTS ratings CASCADE;
-        DROP TABLE IF EXISTS uporabnik CASCADE;
         DROP TABLE IF EXISTS to_read CASCADE;
         DROP TABLE IF EXISTS tags CASCADE;
     """)
+    conn.commit()
+    
+def pobrisi_uporabnik():
+    cur.execute ("""
+       DROP TABLE IF EXISTS uporabnik CASCADE;
+      """ )
     conn.commit()
 
 def uvozi_podatke():
