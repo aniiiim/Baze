@@ -5,7 +5,7 @@
 from bottle import *
 
 # uvozimo ustrezne podatke za povezavo
-import auth_public as auth
+import auth
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
@@ -45,7 +45,7 @@ secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 ##    return static_file(filepath, root="static/ico")
 
 
-@route('/static/<filename:path>')
+@route('/assets/<filename:path>')
 def static(filename):
     """Splošna funkcija, ki servira vse statične datoteke iz naslova
        /static/..."""
@@ -57,7 +57,8 @@ def main():
 
 @get('/books')
 def index():
-    return template('index.html')
+    seznam=top_9()
+    return template('index.html', najboljsi=seznam)
 
 def password_md5(s):
     """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
@@ -241,14 +242,14 @@ def user_change(username):
     # lahko kar pokličemo funkcijo, ki servira tako stran
     #return user_wall(username, sporocila=sporocila)
 
-def top_10(limit=10):
-    """Vrni dano število knjig (privzeto 10). Rezultat je seznam, katerega
+def top_9(limit=9):
+    """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
        elementi so oblike [knjiga_id, avtor,naslov,slika]    """
     cur.execute(
-    """SELECT book_id, authors, title, original_publication_year, average_rating,image_url
+    """SELECT (book_id, authors, title, original_publication_year, average_rating,image_url)
        FROM books 
        ORDER BY average_rating DESC
-       LIMIT ?
+       LIMIT %s
     """, [limit])
     najboljsi = cur.fetchall()
     # Rezultat predelamo v nabor.
@@ -260,9 +261,8 @@ def top_10(limit=10):
 ##        komentar[tid].append((username, ime, vsebina))
 ##    c.close()
     # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
-    return template("index.html",
-                           napaka=None,
-                           najboljsi = najboljsi)
+    return(najboljsi)
+
 ######################################################################
 # Glavni program
 
