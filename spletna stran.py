@@ -23,7 +23,7 @@ secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 ##    """Splošna funkcija, ki servira vse statične datoteke iz naslova
 ##       /static/..."""
 ##    return static_file(filename, root=static_dir)
-
+##
 ##@get("/css/<filepath:re:.*\.css>")
 ##def css(filepath):
 ##    return static_file(filepath, root="./static/css")
@@ -32,7 +32,7 @@ secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 ##def font(filepath):
 ##    return static_file(filepath, root="static/fonts")
 ##
-##@get("/img/<filepath:re:.*\.(jpg|png|gif|ico|svg)>")
+##@get("/img/<filepath:re:.*\.(jpg|png|PNG|gif|ico|svg)>")
 ##def img(filepath):
 ##    return static_file(filepath, root="static/img")
 ##
@@ -44,7 +44,8 @@ secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 ##def ico(filepath):
 ##    return static_file(filepath, root="static/ico")
 
-@route("/static/<filename:path>")
+
+@route('/static/<filename:path>')
 def static(filename):
     """Splošna funkcija, ki servira vse statične datoteke iz naslova
        /static/..."""
@@ -67,18 +68,18 @@ def password_md5(s):
 
 # Funkcija, ki v cookie spravi sporocilo
 def set_sporocilo(tip, vsebina):
-    bottle.response.set_cookie('message', (tip, vsebina), path='/', secret=secret)
+    response.set_cookie('message', (tip, vsebina), path='/', secret=secret)
 
 # Funkcija, ki iz cookija dobi sporočilo, če je
 def get_sporocilo():
-    sporocilo = bottle.request.get_cookie('message', default=None, secret=secret)
-    bottle.response.delete_cookie('message')
+    sporocilo = request.get_cookie('message', default=None, secret=secret)
+    response.delete_cookie('message')
     return sporocilo
 
 def get_user(auto_login = True):
     """Poglej cookie in ugotovi, kdo je prijavljeni uporabnik,
        vrni njegov username in ime. Če ni prijavljen, presumeri
-       na stran za prijavo ali vrni None (advisno od auto_login).
+       na stran za prijavo ali vrni None (odvisno od auto_login).
     """
     # Dobimo username iz piškotka
     username = request.get_cookie('username', secret=secret)
@@ -131,10 +132,11 @@ def main():
 ##        return template('dodaj_transakcijo.html', znesek=znesek, racun=racun, opis=opis,
 ##                        napaka = 'Zgodila se je napaka: %s' % ex)
 ##    redirect("/")
-
+@get("/login/")
 def login_get():
     """Serviraj formo za login."""
-    return bottle.template("login.html", 
+    #curuser = get_user(auto_redir = True)
+    return template("login.html", 
                            napaka=None,
                            username=None)
 
@@ -143,52 +145,57 @@ def logout():
     bottle.response.delete_cookie('username')
     bottle.redirect('/login/')
 
-
+@post("/login/")
 def login_post():
     """Obdelaj izpolnjeno formo za prijavo"""
     # Uporabniško ime, ki ga je uporabnik vpisal v formo
-    username = bottle.request.forms.username
+    username = request.forms.username
     # Izračunamo MD5 has gesla, ki ga bomo spravili
-    password = password_md5(bottle.request.forms.password)
+    password = password_md5(request.forms.password)
     # Preverimo, ali se je uporabnik pravilno prijavil
     #c = baza.cursor()
     cur.execute("SELECT 1 FROM uporabnik WHERE username=%s AND password=%s",
               [username, password])
     if cur.fetchone() is None:
         # Username in geslo se ne ujemata
-        return bottle.template("login.html", #template za login
+        return template("login.html", #template za login
                                napaka="Nepravilna prijava",
                                username=username)
     else:
         # Vse je v redu, nastavimo cookie in preusmerimo na glavno stran
-        bottle.response.set_cookie('username', username, path='/', secret=secret)
-        bottle.redirect("/")
+        response.set_cookie('username', username, path='/', secret=secret)
+        redirect("/")
 
+@get("/register/")
 def login_get():
     """Prikaži formo za registracijo."""
-    return bottle.template("register.html", 
+    #curuser = get_user(auto_redir = True)
+    return template("register.html", 
                            username=None,
                            ime=None,
                            napaka=None)
 
+@post("/register/")
 def register_post():
     """Registriraj novega uporabnika."""
-    username = bottle.request.forms.username
-    #ime = bottle.request.forms.ime
-    password1 = bottle.request.forms.password1
-    password2 = bottle.request.forms.password2
+    username = request.forms.username
+##    ime = request.forms.ime
+##    priimek = request.forms.priimek
+    password1 = request.forms.password1
+    password2 = request.forms.password2
+    #curuser = get_user(auto_redir = True)
     # Ali uporabnik že obstaja?
     #c = baza.cursor()
     cur.execute("SELECT 1 FROM uporabnik WHERE username=%s", [username])
     if cur.fetchone():
         # Uporabnik že obstaja
-        return bottle.template("register.html",
+        return template("register.html",
                                username=username,
-                               ime=ime,
+                               #ime=ime,
                                napaka='To uporabniško ime je že zavzeto.')
     elif not password1 == password2:
         # Gesli se ne ujemata
-        return bottle.template("register.html",
+        return template("register.html",
                                username=username,
                                ime=ime,
                                napaka='Gesli se ne ujemata.')
@@ -196,17 +203,17 @@ def register_post():
         # Vse je v redu, vstavi novega uporabnika v bazo
         password = password_md5(password1)
         cur.execute("INSERT INTO uporabnik (username,ime, password) VALUES (%s,%s,%s)", 
-                  [username,ime, password])
+                  (username,ime, password))
         # Daj uporabniku cookie
-        bottle.response.set_cookie('username', username, path='/', secret=secret)
-        bottle.redirect("/")
+        response.set_cookie('username', username, path='/', secret=secret)
+        redirect("/")
 
 def user_change(username):
     """Obdelaj formo za spreminjanje podatkov o uporabniku."""
     # Kdo je prijavljen?
     (username, ime) = get_user()
     # Staro geslo (je obvezno)
-    password1 = password_md5(bottle.request.forms.password1)
+    password1 = password_md5(request.forms.password1)
     # Preverimo staro geslo
     cur.execute ("SELECT 1 FROM uporabnik WHERE username=%s AND password=%s",
                [username, password1])
@@ -215,8 +222,8 @@ def user_change(username):
     if cur.fetchone():
         # Geslo je ok
         # Ali je treba spremeniti geslo?
-        password2 = bottle.request.forms.password2
-        password3 = bottle.request.forms.password3
+        password2 =request.forms.password2
+        password3 = request.forms.password3
         if password2 or password3:
             # Preverimo, ali se gesli ujemata
             if password2 == password3:
@@ -234,7 +241,28 @@ def user_change(username):
     # lahko kar pokličemo funkcijo, ki servira tako stran
     #return user_wall(username, sporocila=sporocila)
 
-
+def top_10(limit=10):
+    """Vrni dano število knjig (privzeto 10). Rezultat je seznam, katerega
+       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
+    cur.execute(
+    """SELECT book_id, authors, title, original_publication_year, average_rating,image_url
+       FROM books 
+       ORDER BY average_rating DESC
+       LIMIT ?
+    """, [limit])
+    najboljsi = cur.fetchall()
+    # Rezultat predelamo v nabor.
+##    top_10 = tuple(cur)
+##    # Nabor id-jev knjig, ki jih bomo vrnili
+##    tids = (top[0] for top in top_10)
+##    # Sedaj prenesemo rezultate poizvedbe v slovar
+##    for (tid, username, ime, vsebina) in c:
+##        komentar[tid].append((username, ime, vsebina))
+##    c.close()
+    # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
+    return template("index.html",
+                           napaka=None,
+                           najboljsi = najboljsi)
 ######################################################################
 # Glavni program
 
