@@ -55,6 +55,10 @@ def static(filename):
 def main():
     redirect("/books")
 
+@route("/index.html")
+def main():
+    redirect("/books")
+    
 @get('/books')
 def index():
 ##    """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
@@ -63,6 +67,64 @@ def index():
     seznam=top_9()
     return template('index.html', najboljsi=seznam)
     ##return template('index.html', najboljsi=cur)
+
+@route("/four-col.html")
+def main():
+    redirect("/all")
+@get('/all')
+def products():
+    cur.execute ("""SELECT authors, title, average_rating, image_url FROM books ORDER BY title ASC""")
+    vse = cur.fetchall()
+    return template('four-col.html', vse=vse)
+
+@route("/products.html")
+def main():
+    redirect("/zanri")
+@get('/zanri')
+def zanri():
+    return template('products.html')
+
+@route("/login.html")
+def main():
+    redirect("/login")
+@get('/login')
+def login():
+    return template('login.html')
+
+@route("/account.html")
+def main():
+    redirect("/account")
+@get('/account')
+def profil():
+    return template('account.html')
+
+@route("/contact.html")
+def main():
+    redirect("/contact")
+@get('/contact')
+def kontakt():
+    return template('contact.html')
+
+@route("/forget_password.html")
+def main():
+    redirect("/forget_password")
+@get('/forget_password')
+def geslo():
+    return template('forget_password.html')
+
+@route("/register.html")
+def main():
+    redirect("/register")
+@get('/register')
+def register():
+    return template('register.html')
+
+@route("/product_details.html")
+def main():
+    redirect("/product_details")
+@get('/product_details')
+def podrobnosti():
+    return template('product_details.html')
 
 def password_md5(s):
     """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
