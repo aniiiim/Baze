@@ -114,16 +114,19 @@ Body Section
           </div>
         </div>
 <!--
-New Products
+
 -->
 	<div class="well well-small">
 	<h3>10 najbolj priljubljenih knjig </h3>
-	%for element in najboljsi:
 	
-	{{element[0]}}
-	<br></br>
-
+	%for i in najboljsi:
+	%for j in i:
+	%for k in j:
+	{{k[0]}}
 	%end
+	%end
+	%end
+	
 	<hr class="soften"/>
 		
 		  

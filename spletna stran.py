@@ -57,8 +57,12 @@ def main():
 
 @get('/books')
 def index():
+##    """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
+##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
+##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
     return template('index.html', najboljsi=seznam)
+    ##return template('index.html', najboljsi=cur)
 
 def password_md5(s):
     """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
@@ -252,15 +256,15 @@ def top_9(limit=9):
        LIMIT %s
     """, [limit])
     najboljsi = cur.fetchall()
-    # Rezultat predelamo v nabor.
-##    top_10 = tuple(cur)
-##    # Nabor id-jev knjig, ki jih bomo vrnili
-##    tids = (top[0] for top in top_10)
-##    # Sedaj prenesemo rezultate poizvedbe v slovar
-##    for (tid, username, ime, vsebina) in c:
-##        komentar[tid].append((username, ime, vsebina))
-##    c.close()
-    # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
+##    # Rezultat predelamo v nabor.
+####    top_10 = tuple(cur)
+####    # Nabor id-jev knjig, ki jih bomo vrnili
+####    tids = (top[0] for top in top_10)
+####    # Sedaj prenesemo rezultate poizvedbe v slovar
+####    for (tid, username, ime, vsebina) in c:
+####        komentar[tid].append((username, ime, vsebina))
+####    c.close()
+##    # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
     return(najboljsi)
 
 ######################################################################
