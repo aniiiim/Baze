@@ -114,16 +114,19 @@ Body Section
           </div>
         </div>
 <!--
-New Products
+
 -->
-
 	<div class="well well-small">
-	<h3>10 najbolj priljubljenih knjigg </h3>
-	%for element in najboljsi:
-	
 	<h3>10 najbolj priljubljenih knjig </h3>
-
+	
+	%for i in najboljsi:
+	%for j in i:
+	%for k in j:
+	{{k[0]}}
 	%end
+	%end
+	%end
+	
 	<hr class="soften"/>
 		
 		  
@@ -147,7 +150,6 @@ New Products
 				</div>
 			  </div>
 			</li>
-			<!--
 			<li class="span4">
 			  <div class="thumbnail">
 				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
@@ -278,7 +280,6 @@ New Products
 				</div>
 			  </div>
 			</li>
-			-->
 		  </ul>
 		</div>
 	</div>

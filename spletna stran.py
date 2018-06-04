@@ -246,11 +246,11 @@ def user_change(username):
     # lahko kar pokličemo funkcijo, ki servira tako stran
     #return user_wall(username, sporocila=sporocila)
 
-def top_9(limit=9):
+def top_9(limit=21):
     """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
        elementi so oblike [knjiga_id, avtor,naslov,slika]    """
     cur.execute(
-    """SELECT (book_id, authors, title, original_publication_year, average_rating,image_url)
+    """SELECT book_id, authors, title, original_publication_year, average_rating,image_url
        FROM books 
        ORDER BY average_rating DESC
        LIMIT %s
