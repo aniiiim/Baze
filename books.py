@@ -172,20 +172,22 @@ def uvozi_book_tags():
         #rd = UnicodeReader(f)
         rd= csv.reader(f)
         next(rd) # izpusti naslovno vrstico
+        i=0
         for r in rd:
+            i=i+1
             try:
                 r = [ None if x in ('', '-') else x for x in r]
-                r= r[0:(len(r))]
-                print( r,len(r))
+                r= r[1:(len(r))]
+                #print( r,len(r))
                 cur.execute("""
                     INSERT INTO book_tags
-                    (goodreads_book_id, count)
+                    (tag_id, count)
                     VALUES (%s,%s)
-                    RETURNING tag_id
+                    RETURNING goodreads_book_id
                 """, r)
                 rid, = cur.fetchone()
             except Exception as ex:
-                print('Napaka:',r)
+                print('Napaka:',r,i)
                 raise ex
     conn.commit()
     
