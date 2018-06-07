@@ -72,7 +72,7 @@ def ustvari_book_tags():
     cur.execute ("""
        CREATE TABLE book_tags (
             goodreads_book_id NUMERIC ,
-            tag_id INTEGER REFERENCES tags(tag_id),
+            tag_id INTEGER NOT NULL REFERENCES tags(tag_id),
             count INTEGER
             );
       """ )
@@ -174,9 +174,9 @@ def uvozi_book_tags():
         next(rd) # izpusti naslovno vrstico
         for r in rd:
             try:
-                r = [None if x in ('', '-') else x for x in r]
-                r= r[1:(len(r))]
-                #print( r,len(r))
+                r = [ None if x in ('', '-') else x for x in r]
+                r= r[0:(len(r))]
+                print( r,len(r))
                 cur.execute("""
                     INSERT INTO book_tags
                     (goodreads_book_id, count)
@@ -203,18 +203,6 @@ def pravice():
         GRANT SELECT ON ALL TABLES IN SCHEMA public TO javnost;
     """)
     conn.commit()
-
-
-##def prebivalci(stevilo):
-##    cur.execute("""
-##        SELECT * FROM obcina
-##        WHERE prebivalstvo >= %s
-##    """,[stevilo])
-##    return cur.fetchall()
-##    for r in cur:
-##        print(r["ime"])
-        #namesto returna lahko tud z for zanko
-
 #od baze ze odvežeš conn.close()
 
 conn = psycopg2.connect(database=auth.db, host=auth.host, user=auth.user, password=auth.password)
