@@ -75,7 +75,19 @@ def main():
 def products():
     cur.execute ("""SELECT authors, title, average_rating, image_url FROM books ORDER BY title ASC""")
     vse = cur.fetchall()
-    return template('four-col.html', vse=vse)
+##    query = dict(request.query)
+##    try:
+##        del query['page']
+##    except:
+##        pass
+##
+##    #V html ne gre (brez js) zamenjati samo dela query stringa brez da bi izgubil ostale, zato:
+##    qstring = str(request.query_string)
+##    qstring = re.sub('&?page=\d','', qstring, flags=re.IGNORECASE)    
+##    pagenr = request.query.page or 1 #stran
+    return template('four-col.html', vse=vse,#pagenr=int(pagenr),
+                           #qstring=qstring,query=query
+                    )
 
 @route("/products.html")
 def main():
@@ -122,9 +134,17 @@ def register():
 @route("/product_details.html")
 def main():
     redirect("/product_details")
+    
 @get('/product_details')
 def podrobnosti():
-    return template('product_details.html')
+    cur.execute ("""SELECT authors, title, average_rating, image_url FROM books ORDER BY title ASC""")
+    podatki = cur.fetchall()
+    #slika
+##    cur.execute(''' SELECT image_url FROM books        
+##        where book_id= %s''',[bookid]) # das se v podrobnosti(bookid)
+##    slike = cur.fetchall()
+    return template('product_details.html', podatki=podatki, #slike=slike
+                    )
 
 def password_md5(s):
     """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
