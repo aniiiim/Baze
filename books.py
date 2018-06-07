@@ -43,8 +43,6 @@ def ustvari_tabelo():
             rating NUMERIC NOT NULL
             );
 
-            
-
             CREATE TABLE to_read (
             user_id NUMERIC,
             book_id INTEGER REFERENCES books(book_id)
@@ -69,19 +67,37 @@ def ustvari_uporabnik():
             );
       """ )
     conn.commit()
+
+def ustvari_book_tags():
+    cur.execute ("""
+       CREATE TABLE book_tags (
+            goodreads_book_id NUMERIC ,
+            tag_id INTEGER REFERENCES tags(tag_id),
+            count INTEGER
+            );
+      """ )
+    conn.commit()
     
 def pobrisi_tabelo():
     cur.execute("""
-        DROP TABLE IF EXISTS books CASCADE;
         DROP TABLE IF EXISTS ratings CASCADE;
         DROP TABLE IF EXISTS to_read CASCADE;
         DROP TABLE IF EXISTS tags CASCADE;
     """)
     conn.commit()
-    
+def pobrisi_books():
+    cur.execute ("""
+       DROP TABLE IF EXISTS books CASCADE;
+      """ )
+    conn.commit()
 def pobrisi_uporabnik():
     cur.execute ("""
        DROP TABLE IF EXISTS uporabnik CASCADE;
+      """ )
+    conn.commit()
+def pobrisi_book_tags():
+    cur.execute ("""
+       DROP TABLE IF EXISTS book_tags CASCADE;
       """ )
     conn.commit()
 
@@ -150,9 +166,9 @@ def uvozi_to_read():
                 print('Napaka:',r,i)
                 raise ex
     conn.commit()
-    
-def uvozi_tags():
-    with open("tags.csv", encoding="UTF-8") as f:
+
+def uvozi_book_tags():
+    with open("book_tags.csv", encoding="UTF-8") as f:
         #rd = UnicodeReader(f)
         rd= csv.reader(f)
         next(rd) # izpusti naslovno vrstico
@@ -162,9 +178,9 @@ def uvozi_tags():
                 r= r[1:(len(r))]
                 #print( r,len(r))
                 cur.execute("""
-                    INSERT INTO tags
-                    (tag_name)
-                    VALUES (%s)
+                    INSERT INTO book_tags
+                    (goodreads_book_id, count)
+                    VALUES (%s,%s)
                     RETURNING tag_id
                 """, r)
                 rid, = cur.fetchone()
