@@ -18,33 +18,6 @@ static_dir = "./static"
 # Skrivnost za kodiranje cookijev
 secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 
-##@route("/static/<filename:path>")
-##def static(filename):
-##    """Splošna funkcija, ki servira vse statične datoteke iz naslova
-##       /static/..."""
-##    return static_file(filename, root=static_dir)
-##
-##@get("/css/<filepath:re:.*\.css>")
-##def css(filepath):
-##    return static_file(filepath, root="./static/css")
-##
-##@get("/fonts/<filepath:re:.*\.(eot|otf|svg|ttf|woff|less|css|scss|woff2?)>")
-##def font(filepath):
-##    return static_file(filepath, root="static/fonts")
-##
-##@get("/img/<filepath:re:.*\.(jpg|png|PNG|gif|ico|svg)>")
-##def img(filepath):
-##    return static_file(filepath, root="static/img")
-##
-##@get("/js/<filepath:re:.*\.js>")
-##def js(filepath):
-##    return static_file(filepath, root="static/js")
-##
-##@get("/ico/<filepath:re:.*\.ico>")
-##def ico(filepath):
-##    return static_file(filepath, root="static/ico")
-
-
 @route('/assets/<filename:path>')
 def static(filename):
     """Splošna funkcija, ki servira vse statične datoteke iz naslova
@@ -54,11 +27,9 @@ def static(filename):
 @route("/")
 def main():
     redirect("/books")
-
 @route("/index.html")
 def main():
-    redirect("/books")
-    
+    redirect("/books")  
 @get('/books')
 def index():
 ##    """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
@@ -95,6 +66,76 @@ def main():
 @get('/zanri')
 def zanri():
     return template('products.html')
+
+@route("/products_drama.html")
+def main():
+    redirect("/drama")
+@get('/drama')
+def zanri():
+    return template('products_drama.html')
+
+@route("/products_biography.html")
+def main():
+    redirect("/biography")
+@get('/biography')
+def zanri():
+    return template('products_biography.html')
+
+@route("/products_children.html")
+def main():
+    redirect("/children")
+@get('/children')
+def zanri():
+    return template('products_children.html')
+
+@route("/products_classics.html")
+def main():
+    redirect("/classics")
+@get('/classics')
+def zanri():
+    return template('products_classics.html')
+
+@route("/products_comics.html")
+def main():
+    redirect("/comics")
+@get('/comics')
+def zanri():
+    return template('products_comics.html')
+
+@route("/products_fiction.html")
+def main():
+    redirect("/fiction")
+@get('/fiction')
+def zanri():
+    return template('products_fiction.html')
+
+@route("/products_history.html")
+def main():
+    redirect("/history")
+@get('/history')
+def zanri():
+    return template('products_history.html')
+
+@route("/products_romance.html")
+def main():
+    redirect("romance/")
+@get('/romance')
+def zanri():
+    return template('products_romance.html')
+
+@route("/products_science.html")
+def main():
+    redirect("science/")
+@get('/science')
+def zanri():
+    return template('products_science.html')
+
+@route("/products_thriller.html")
+def main():
+    redirect("thriller/")
+@get('/thriller')
+def zanri():
+    return template('products_thriller.html')
 
 @route("/login.html")
 def main():
