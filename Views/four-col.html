@@ -95,18 +95,24 @@ Three column view
 		<ul class="thumbnails">
 		%for i in vse:
 			<li class="span3">
-			  <div class="thumbnail">
+			  <div class="thumbnail" style="height: 400px"">
 				<a href="product_details.html" class="overlay"></a>
 				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
 				<a href="product_details.html"><img src="{{i[3]}}" alt=""></a>
 				<div class="caption cntr">
 					<p><strong> {{i[1]}}</strong></p>
 					<p> {{i[0]}}</p>
-					<h4><a class="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
-					<div class="actionList">
-						<a class="pull-left" href="#">Add to Wish List </a> 
-						<a class="pull-left" href="#"> Add to Compare </a>
-					</div> 
+					<h4><a class="shopBtn" href="#" title="add to cart"> Add to Wish List </a></h4>
+					
+					<div class="myRating uitext greyText">Rate this book</div>
+					<div class="rating rating2"><!--
+						--><a href="#5" title="Give 5 stars">★</a><!--
+						--><a href="#4" title="Give 4 stars">★</a><!--
+						--><a href="#3" title="Give 3 stars">★</a><!--
+						--><a href="#2" title="Give 2 stars">★</a><!--
+						--><a href="#1" title="Give 1 star">★</a>
+					</div>
+ 
 					<br class="clr">
 				</div>
 			  </div>

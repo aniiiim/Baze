@@ -44,7 +44,6 @@ secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 ##def ico(filepath):
 ##    return static_file(filepath, root="static/ico")
 
-
 @route('/assets/<filename:path>')
 def static(filename):
     """Splošna funkcija, ki servira vse statične datoteke iz naslova
