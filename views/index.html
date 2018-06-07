@@ -122,37 +122,37 @@ Body Section
 
 -->
 	<div class="well well-small">
-	<h3>10 najbolj priljubljenih knjig </h3
+	<h3>Best rated books </h3
 	<hr class="soften"/> 
-		<div class="row-fluid">
+		<div class="row">
 		  <ul class="thumbnails">
 		  %for i in najboljsi:
 			<li class="span4">
-			  <div class="thumbnail">
+			  <div class="thumbnail" style="height: 320px">
 				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
 				<a href="product_details.html"><img src={{i[5]}} alt=""></a>
 				<div class="caption cntr">
 					<p><strong>{{i[2]}}</strong></p>
 					<p>{{i[1]}}</p>
 					<h4><a class="shopBtn" href="#" title="add to cart"> Add to Wish List</a></h4>
-					<div class="starsErrorTooltip hidden">
-					</div>
+				
 					<div class="myRating uitext greyText">Rate this book</div>
-					<div class="clearRating uitext" style="display: none;">Clear rating</div>
-					<div class="stars" data-resource-id="929" data-user-id="0" data-submit-url="#" data-rating="0">
-					<a class="star off" title="did not like it" href="#" ref="">1 of 5 stars</a>
-					<a class="star off" title="it was ok" href="#" ref="">2 of 5 stars</a>
-					<a class="star off" title="liked it" href="#" ref="">3 of 5 stars</a>
-					<a class="star off" title="really liked it" href="#" ref="">4 of 5 stars</a>
-					<a class="star off" title="it was amazing" href="#" ref="">5 of 5 stars</a></div>
+					<div class="rating rating2"><!--
+						--><a href="#5" title="Give 5 stars">★</a><!--
+						--><a href="#4" title="Give 4 stars">★</a><!--
+						--><a href="#3" title="Give 3 stars">★</a><!--
+						--><a href="#2" title="Give 2 stars">★</a><!--
+						--><a href="#1" title="Give 1 star">★</a>
 					</div>
-					</div>
-					</li>
-			%end
+					<br class="clr">
+				</div>	
+			  </div>	
+					
+			</li>
+		   %end
 		  </ul>
 		  
 		</div>
-	</div>
 	</div>
 	</div>
 
@@ -190,13 +190,23 @@ Footer
 -->
 <footer class="footer">
 <div class="row-fluid">
-
+<div class="span2">
+<h5>Your Account</h5>
+<a href="#">YOUR ACCOUNT</a><br>
+ </div>
 <div class="span2">
 <h5>Information</h5>
 <a href="contact.html">CONTACT</a><br>
  </div>
+<div class="span2">
+<h5>Our Offer</h5>
+<a href="index.html">TOP BOOKS</a><br>
+ </div>
+ <div class="span6">
+ </div>
  </div>
 </footer>
+</div><!-- /container -->
 
 <div class="copyright">
 <div class="container">
