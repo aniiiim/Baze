@@ -73,8 +73,17 @@ def main():
 @get('/all')
 def products():
     cur.execute ("""SELECT authors, title, average_rating, image_url FROM books ORDER BY title ASC""")
+##    query = dict(request.query)
+##    qstring = str(request.query_string)
+##    qstring = re.sub('&?page=\d','', qstring, flags=re.IGNORECASE)
+##    pagenr = request.query.page or 1
     vse = cur.fetchall()
-    return template('four-col.html', vse=vse)
+    #iz query stringov poberemo vse (filtri in št strani)
+    return template('four-col.html',
+##                        pagenr= int(pagenr),
+##                        qstring=qstring,
+                        vse=vse)
+##                        query=query)
 
 @route("/products.html")
 def main():
