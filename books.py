@@ -63,7 +63,8 @@ def ustvari_uporabnik():
             username TEXT NOT NULL,
             ime TEXT NOT NULL,
             priimek TEXT NOT NULL,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            email TEXT NOT NULL
             );
       """ )
     conn.commit()

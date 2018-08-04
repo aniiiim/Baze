@@ -60,6 +60,17 @@ Navigation Bar Section
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
 				<form class="form-signin" role="form" method="post" action=".">
+				   %if napaka: 
+          <div class="alert alert-warning">{{napaka}}</div> 
+          %end 
+          <input type="username" class="form-control" placeholder="Uporabni??ko ime" 
+                 %if username: 
+                 value="{{username}}" 
+                 %end 
+                 name="username" 
+                 required autofocus> 
+          <input type="password" class="form-control" placeholder="Geslo" name="password" required> 
+
 				  <div class="control-group">
 					<input type="text" class="span2" id="inputEmail" placeholder="Email">
 				  </div>

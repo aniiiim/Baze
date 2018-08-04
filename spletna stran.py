@@ -254,8 +254,8 @@ def login_get():
 def register_post():
     """Registriraj novega uporabnika."""
     username = request.forms.username
-##    ime = request.forms.ime
-##    priimek = request.forms.priimek
+    ime = request.forms.ime
+    priimek = request.forms.priimek
     password1 = request.forms.password1
     password2 = request.forms.password2
     #curuser = get_user(auto_redir = True)
@@ -266,7 +266,7 @@ def register_post():
         # Uporabnik že obstaja
         return template("register.html",
                                username=username,
-                               #ime=ime,
+                               ime=ime,
                                napaka='To uporabniško ime je že zavzeto.')
     elif not password1 == password2:
         # Gesli se ne ujemata
@@ -277,8 +277,8 @@ def register_post():
     else:
         # Vse je v redu, vstavi novega uporabnika v bazo
         password = password_md5(password1)
-        cur.execute("INSERT INTO uporabnik (username,ime, password) VALUES (%s,%s,%s)", 
-                  (username,ime, password))
+        cur.execute("INSERT INTO uporabnik (username, ime, priimek, password, email) VALUES (%s,%s,%s,%s,%s)", 
+                  (username, ime, priimek, password, email))
         # Daj uporabniku cookie
         response.set_cookie('username', username, path='/', secret=secret)
         redirect("/")
