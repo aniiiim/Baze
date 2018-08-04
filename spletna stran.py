@@ -120,13 +120,6 @@ def main():
 def geslo():
     return template('forget_password.html')
 
-@route("/register.html")
-def main():
-    redirect("/register")
-@get('/register')
-def register():
-    return template('register.html')
-
 @route("/product_details.html")
 def main():
     redirect("/product_details")
@@ -241,7 +234,11 @@ def login_post():
         response.set_cookie('username', username, path='/', secret=secret)
         redirect("/")
 
-@get("/register/")
+@route("/register.html")
+def main():
+    redirect("/register")
+
+@get("/register")
 def login_get():
     """Prikaži formo za registracijo."""
     #curuser = get_user(auto_redir = True)
@@ -250,7 +247,7 @@ def login_get():
                            ime=None,
                            napaka=None)
 
-@post("/register/")
+@post("/register")
 def register_post():
     """Registriraj novega uporabnika."""
     username = request.forms.username
