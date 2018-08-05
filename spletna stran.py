@@ -11,6 +11,7 @@ import auth
 import psycopg2, psycopg2.extensions, psycopg2.extras
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo problemov s šumniki
 
+import hashlib
 # odkomentiraj, če želiš sporočila o napakah
 # debug(True)
 static_dir = "./static"
@@ -253,6 +254,7 @@ def register_post():
     username = request.forms.username
     ime = request.forms.ime
     priimek = request.forms.priimek
+    email = request.forms.email
     password1 = request.forms.password1
     password2 = request.forms.password2
     #curuser = get_user(auto_redir = True)
