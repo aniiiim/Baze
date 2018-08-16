@@ -69,10 +69,40 @@ def ustvari_uporabnik():
       """ )
     conn.commit()
 
+def ustvari_books():
+    cur.execute ("""
+       CREATE TABLE books (
+            book_id SERIAL PRIMARY KEY,
+            goodreads_book_id NUMERIC NOT NULL,
+            best_book_id NUMERIC NOT NULL,
+            work_id NUMERIC NOT NULL,
+            books_count NUMERIC NOT NULL,
+            isbn TEXT,
+            isbn_13 TEXT,
+            authors TEXT NOT NULL,
+            original_publication_year NUMERIC,
+            original_title TEXT,
+            title TEXT NOT NULL,
+            language_code TEXT,
+            average_rating NUMERIC NOT NULL,
+            ratings_count NUMERIC NOT NULL,
+            work_ratings_count NUMERIC NOT NULL,
+            work_text_reviews_count NUMERIC NOT NULL,
+            ratings_1 NUMERIC,
+            ratings_2 NUMERIC,
+            ratings_3 NUMERIC,
+            ratings_4 NUMERIC,
+            ratings_5 NUMERIC,
+            image_url TEXT,
+            small_image_url TEXT
+            );
+      """ )
+    conn.commit()
+
 def ustvari_book_tags():
     cur.execute ("""
        CREATE TABLE book_tags (
-            goodreads_book_id NUMERIC ,
+            goodreads_book_id NUMERIC,
             tag_id INTEGER NOT NULL REFERENCES tags(tag_id),
             count INTEGER
             );
