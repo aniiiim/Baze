@@ -237,6 +237,69 @@ def login_post():
         response.set_cookie('username', username, path='/', secret=secret)
         redirect("/")
 
+@post("/contact")
+def login_post():
+    """Obdelaj izpolnjeno formo za prijavo"""
+    # Uporabniško ime, ki ga je uporabnik vpisal v formo
+    username = request.forms.username
+    # Izračunamo MD5 has gesla, ki ga bomo spravili
+    password = password_md5(request.forms.password)
+    # Preverimo, ali se je uporabnik pravilno prijavil
+    #c = baza.cursor()
+    cur.execute("SELECT 1 FROM uporabnik WHERE username=%s AND password=%s",
+              [username, password])
+    if cur.fetchone() is None:
+        # Username in geslo se ne ujemata
+        return template("contact.html", #template za login
+                               napaka="Nepravilna prijava",
+                               username=username)
+    else:
+        # Vse je v redu, nastavimo cookie in preusmerimo na glavno stran
+        response.set_cookie('username', username, path='/', secret=secret)
+        redirect("/")
+
+@post("/books")
+def login_post():
+    """Obdelaj izpolnjeno formo za prijavo"""
+    # Uporabniško ime, ki ga je uporabnik vpisal v formo
+    username = request.forms.username
+    # Izračunamo MD5 has gesla, ki ga bomo spravili
+    password = password_md5(request.forms.password)
+    # Preverimo, ali se je uporabnik pravilno prijavil
+    #c = baza.cursor()
+    cur.execute("SELECT 1 FROM uporabnik WHERE username=%s AND password=%s",
+              [username, password])
+    if cur.fetchone() is None:
+        # Username in geslo se ne ujemata
+        return template("index.html", #template za login
+                               napaka="Nepravilna prijava",
+                               username=username)
+    else:
+        # Vse je v redu, nastavimo cookie in preusmerimo na glavno stran
+        response.set_cookie('username', username, path='/', secret=secret)
+        redirect("/")
+
+@post("/login/")
+def login_post():
+    """Obdelaj izpolnjeno formo za prijavo"""
+    # Uporabniško ime, ki ga je uporabnik vpisal v formo
+    username = request.forms.username
+    # Izračunamo MD5 has gesla, ki ga bomo spravili
+    password = password_md5(request.forms.password)
+    # Preverimo, ali se je uporabnik pravilno prijavil
+    #c = baza.cursor()
+    cur.execute("SELECT 1 FROM uporabnik WHERE username=%s AND password=%s",
+              [username, password])
+    if cur.fetchone() is None:
+        # Username in geslo se ne ujemata
+        return template("login.html", #template za login
+                               napaka="Nepravilna prijava",
+                               username=username)
+    else:
+        # Vse je v redu, nastavimo cookie in preusmerimo na glavno stran
+        response.set_cookie('username', username, path='/', secret=secret)
+        redirect("/")
+
 @route("/register.html")
 def main():
     redirect("/register")
@@ -249,6 +312,16 @@ def login_get():
                            username=None,
                            ime=None,
                            napaka=None)
+
+@get("/contact")
+def login_get():
+    """Prikaži formo za registracijo."""
+    #curuser = get_user(auto_redir = True)
+    return template("contact.html", 
+                           username=None,
+                           ime=None,
+                           napaka=None)
+
 
 @post("/register")
 def register_post():

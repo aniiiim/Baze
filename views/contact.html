@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Twitter Bootstrap shopping cart</title>
+    <title>contact</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -27,16 +27,6 @@
 <!-- 
 	Upper Header Section 
 -->
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="topNav">
-		<div class="container">
-			<div class="alignR">
-				<a href="register.html"><span class="icon-edit"></span> Free Register </a> 
-				<a href="contact.html"><span class="icon-envelope"></span> Contact us</a>
-			</div>
-		</div>
-	</div>
-</div>
 
 <!--
 Lower Header Section 
@@ -44,8 +34,6 @@ Lower Header Section
 <div class="container">
 <div id="gototop"> </div>
 <header id="header">
-<div class="row">
-</div>
 </header>
 
 <!--
@@ -53,7 +41,6 @@ Navigation Bar Section
 -->
 <div class="navbar">
 	  <div class="navbar-inner">
-	  <br>
 		<div class="container">
 		  <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
 			<span class="icon-bar"></span>
@@ -62,8 +49,10 @@ Navigation Bar Section
 		  </a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-			  <li class="active"><a href="index.html">Home	</a></li>
+			  <li class=""><a href="index.html">Home	</a></li>
 			  <li class=""><a href="four-col.html">Books</a></li>
+			  <li class=""><a href="/register">Register</a></li>
+			  <li class=""><a href="account.html">Account</a></li>
 			</ul>
 			<form action="#" class="navbar-search pull-left">
 			  <input type="text" placeholder="Search" class="search-query span2">
@@ -72,7 +61,7 @@ Navigation Bar Section
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm">
+				<form class="form-horizontal loginFrm" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
@@ -96,6 +85,29 @@ Navigation Bar Section
 <!-- 
 Body Section 
 -->
+<div class="row">
+<div id="sidebar" class="span3">
+<div class="well well-small">
+	<ul class="nav nav-list">
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Drama</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Romance</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>History</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Thriller</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Fiction</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Comics</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Biography</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Science </a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Children</a></li>
+		<li><a href="products.html"><span class="icon-chevron-right"></span>Classics</a></li>
+		<li style="border:0"> &nbsp;</li>
+	</ul>
+</div>
+	</div>
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li class="active">Registration</li>
+    </ul>
 	<hr class="soften">
 	<div class="well well-small">
 	<h1>Visit us</h1>
@@ -152,10 +164,37 @@ Body Section
 
 	
 </div>
+</div>
+</div>
+
 <!-- 
 Clients 
 -->
-
+<section class="our_client">
+	<hr class="soften"/>
+	<h4 class="title cntr"><span class="text">Manufactures</span></h4>
+	<hr class="soften"/>
+	<div class="row">
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/1.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/2.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/3.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/4.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/5.png"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="assets/img/6.png"></a>
+		</div>
+	</div>
+</section>
 
 <!--
 Footer
@@ -163,7 +202,7 @@ Footer
 <footer class="footer">
 <div class="row-fluid">
 <div class="span2">
-<br> 
+<h5>Your Account</h5>
 <a href="#">YOUR ACCOUNT</a><br>
  </div>
 <div class="span2">
