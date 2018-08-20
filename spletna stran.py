@@ -47,17 +47,13 @@ secret = "to skrivnost je zelo tezko uganiti 1094107c907cw982982c42"
 ##def ico(filepath):
 ##    return static_file(filepath, root="static/ico")
 
-@route('/assets/<filename:path>')
+@route('/static/<filename:path>')
 def static(filename):
     """Splošna funkcija, ki servira vse statične datoteke iz naslova
        /static/..."""
     return static_file(filename, root=static_dir)
 
 @route("/")
-def main():
-    redirect("/books")
-
-@route("/index.html")
 def main():
     redirect("/books")
     
@@ -67,8 +63,79 @@ def index():
 ##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
 ##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
-    return template('index.html', najboljsi=seznam)
-    ##return template('index.html', najboljsi=cur)
+    curuser=get_user()
+    query=dict(request.query)
+    qstring = str(request.query_string)
+    qstring = re.sub('&?page=\d','', qstring, flags=re.IGNORECASE)
+    pagenr = request.query.page or 1
+    ORstring='''SELECT * from knjige
+                WHERE 1=1\n'''
+    parameters=[]
+    try:
+        krnekaj= query['search']
+    except:
+        query['search']=''
+    
+    if query['search'] != '': 
+        ORstring += '''AND (LOWER(title) LIKE LOWER(%s) )'''
+        parameters = parameters + ['%'+query['search']+'%']
+        print('%'+query['search']+'%')
+
+    ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
+    cur.execute(ORstring,parameters)
+    predmeti=cur.fetchall()
+    
+    return template('index.html',
+                    qstring=qstring,                    
+                    predmeti=predmeti,
+                    query=query,
+                    atributi=[],
+                    logged=curuser[2],
+                    najboljsi=seznam)
+
+@get('/product_details.html')
+def podrobnosti():
+    return template('product_details.html')
+
+@get("/item/<book_id>/")
+def item_get(book_id):
+##    cur.execute( ''' SELECT * FROM knjige
+##         where book_id = %s''',[book_id])
+##    vse=cur.fetchall()
+##    #slike
+##    cur.execute(''' SELECT book_id,image_url FROM knjige
+##        where book_id= %s''',[book_id])
+##    slike=cur.fetchone()
+##
+##    cur.execute('''SELECT book_id,authors,title,
+##                    owner_id,original_publication_year,average_rating,image_url,
+##                    user_id,username,ime,priimek,email FROM knjige
+##                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
+##                    where book_id = %s''',[book_id])
+##    item=cur.fetchall()
+    return template('product_details.html')
+
+##@post("/item/<book_id>/")
+##def item_post(book_id):
+##    cur.execute( ''' SELECT * FROM knjige
+##         where book_id = %s''',[book_id])
+##    vse=cur.fetchall()
+##    #slike
+##    cur.execute(''' SELECT book_id,image_url FROM knjige
+##        where book_id= %s''',[book_id])
+##    slike=cur.fetchall()
+##
+##    cur.execute('''SELECT book_id,authors,title,
+##                    owner_id,original_publication_year,average_rating,image_url,
+##                    user_id,username,ime,priimek,email FROM knjige
+##                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
+##                    where book_id = %s''',[book_id])
+##    item=cur.fetchone()
+##
+##    return template("product-details.html",
+##                           slike=slike,
+##                           atributi=atributi,
+##                           item = item)
 
 @route("/four-col.html")
 def main():
@@ -123,12 +190,9 @@ def main():
 def geslo():
     return template('forget_password.html')
 
-@route("/product_details.html")
-def main():
-    redirect("/product_details")
-@get('/product_details')
-def podrobnosti():
-    return template('product_details.html')
+
+
+
 
 def password_md5(s):
     """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
@@ -147,7 +211,7 @@ def get_sporocilo():
     response.delete_cookie('message')
     return sporocilo
 
-def get_user(auto_login = True):
+def get_user(auto_login = False,auto_redir=False):
     """Poglej cookie in ugotovi, kdo je prijavljeni uporabnik,
        vrni njegov username in ime. Če ni prijavljen, presumeri
        na stran za prijavo ali vrni None (odvisno od auto_login).
@@ -156,7 +220,7 @@ def get_user(auto_login = True):
     username = request.get_cookie('username', secret=secret)
     # Preverimo, ali ta uporabnik obstaja
     if username is not None:
-        cur.execute("SELECT username, ime FROM uporabnik WHERE username=%s",
+        cur.execute("SELECT user_id, username, ime FROM uporabnik WHERE username=%s",
                   [username])
         r = cur.fetchone()
         if r is not None:
@@ -166,7 +230,7 @@ def get_user(auto_login = True):
     if auto_login:
         redirect('/login/')
     else:
-        return [None,None]
+        return [None,None, None]
 
 def main():
         """Glavna stran."""

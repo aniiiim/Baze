@@ -9,7 +9,7 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo prob
 
 import csv
 
-def ustvari_tabelo():
+def ustvari_books():
     cur.execute("""
         CREATE TABLE books (
             book_id SERIAL PRIMARY KEY,
@@ -36,7 +36,60 @@ def ustvari_tabelo():
             image_url TEXT,
             small_image_url TEXT
             );
-            
+            """)
+    conn.commit()
+
+def wish():
+    cur.execute("""
+        CREATE TABLE wish(
+        book_id INTEGER REFERENCES books(book_id),
+        authors TEXT,
+        title TEXT,
+        image_url TEXT ,
+        user_id INTEGER 
+        );
+        """)
+    conn.commit()
+
+def ustvari_knjige():
+    cur.execute("""
+        CREATE TABLE knjige (
+            book_id SERIAL PRIMARY KEY,
+            goodreads_book_id NUMERIC NOT NULL,
+            best_book_id NUMERIC NOT NULL,
+            work_id NUMERIC NOT NULL,
+            books_count NUMERIC NOT NULL,
+            isbn TEXT,
+            isbn_13 TEXT,
+            authors TEXT NOT NULL,
+            original_publication_year NUMERIC,
+            original_title TEXT,
+            title TEXT NOT NULL,
+            language_code TEXT,
+            average_rating NUMERIC NOT NULL,
+            ratings_count NUMERIC NOT NULL,
+            work_ratings_count NUMERIC NOT NULL,
+            work_text_reviews_count NUMERIC NOT NULL,
+            ratings_1 NUMERIC,
+            ratings_2 NUMERIC,
+            ratings_3 NUMERIC,
+            ratings_4 NUMERIC,
+            ratings_5 NUMERIC,
+            image_url TEXT,
+            small_image_url TEXT
+            );
+            """)
+    conn.commit()
+    
+def posodobi_knjige():
+    cur.execute("""
+    ALTER TABLE knjige
+    ADD owner_id INT REFERENCES uporabnik(user_id) ON DELETE CASCADE;
+            """)
+    conn.commit()
+    
+def ustvari_tabelo():
+    cur.execute("""
             CREATE TABLE ratings (
             user_id NUMERIC,
             book_id INTEGER REFERENCES books(book_id),
@@ -91,6 +144,13 @@ def pobrisi_books():
        DROP TABLE IF EXISTS books CASCADE;
       """ )
     conn.commit()
+
+def pobrisi_wish():
+    cur.execute ("""
+    DROP TABLE IF EXISTS wish CASCADE;
+    """ )
+    conn.commit()
+    
 def pobrisi_uporabnik():
     cur.execute ("""
        DROP TABLE IF EXISTS uporabnik CASCADE;
@@ -121,7 +181,25 @@ def uvozi_podatke():
                 print('Napaka:',r)
                 raise ex
     conn.commit()
-
+def uvozi_knjige():
+    with open("books.csv", encoding="UTF-8") as f:
+        rd= csv.reader(f)
+        next(rd) # izpusti naslovno vrstico
+        for r in rd:
+            try:
+                r = [None if x in ('', '-') else x for x in r]
+                r= r[1:(len(r))]
+                cur.execute("""
+                    INSERT INTO knjige
+                    (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
+                    RETURNING book_id
+                """, r)
+                rid, = cur.fetchone()
+            except Exception as ex:
+                print('Napaka:',r)
+                raise ex
+    conn.commit()
 def uvozi_ratings():
     with open("ratings.csv", encoding="UTF-8") as f:
         #rd = UnicodeReader(f)
