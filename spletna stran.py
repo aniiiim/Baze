@@ -150,14 +150,15 @@ def products():
     vse = cur.fetchall()
     #iz query stringov poberemo vse (filtri in št strani)
     #ta tabela je potrebna zaradi razlicnih koncnic (jpg, png, etc.)
-    cur.execute("SELECT book_id,image_url FROM books WHERE book_id IS NOT NULL ",[[i[0] for i in vse]])
-    slike = cur.fetchall()
-    slike = {i[0]:i[1] for i in slike}
+##    cur.execute("SELECT book_id,image_url FROM books WHERE book_id IS NOT NULL ",[[i[0] for i in vse]])
+##    slike = cur.fetchall()
+##    slike = {i[0]:i[1] for i in slike}
+##    %pic = slike[vse[i-1][0]] v templateju
     return template('four-col.html',
                     pagenr= int(pagenr),
                     qstring=qstring,
                     vse=vse,
-                    slike=slike,
+                    #slike=slike,
                     query=query)
 
 @route("/products.html")
