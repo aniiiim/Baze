@@ -108,7 +108,8 @@ def ustvari_book_tags():
             );
       """ )
     conn.commit()
-    
+# ALTER TABLE book_tags
+# ADD book_tags_id SERIAL PRIMARY KEY;
 def pobrisi_tabelo():
     cur.execute("""
         DROP TABLE IF EXISTS ratings CASCADE;
