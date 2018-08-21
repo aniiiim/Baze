@@ -56,14 +56,23 @@ Navigation Bar Section
 			  <li class=""><a href="/register">Register</a></li>
 			  <li class=""><a href="account.html">Account</a></li>
 			</ul>
-			<form action="#" class="navbar-search pull-left">
-			  <input type="text" placeholder="Search" class="search-query span2">
+			<form action="." class="navbar-search pull-left">
+			  <input type="text" name= "search" placeholder="Search"/
+			  %try:
+			  %if query['search'] != '':
+			  value = {{query['search']}}
+			  %end
+			  %except:
+				%pass
+				%end
+			  >
+			 
 			</form>
 			<ul class="nav pull-right">
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm">
+				<form class="form-horizontal loginFrm" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
@@ -119,7 +128,6 @@ Body Section
           </div>
         </div>
 <!--
-
 -->
 	<div class="well well-small">
 	<h3>Best rated books </h3
@@ -129,13 +137,12 @@ Body Section
 		  %for i in najboljsi:
 			<li class="span4">
 			  <div class="thumbnail" style="height: 320px">
-				<a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-				<a href="product_details.html"><img src={{i[5]}} alt=""></a>
+				<a class="zoomTool" href="item/{{i[0]}}/" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+				<a href="item/{{i[0]}}/"><img src={{i[5]}} alt=""></a>
 				<div class="caption cntr">
 					<p><strong>{{i[2]}}</strong></p>
 					<p>{{i[1]}}</p>
-					<h4><a class="shopBtn" href="#" title="add to cart"> Add to Wish List</a></h4>
-				
+					<a href="/item/{{i[0]}}/" class="btn btn-default add-to-cart"><i ></i>Details</a>
 					<div class="myRating uitext greyText">Rate this book</div>
 					<div class="rating rating2"><!--
 						--><a href="#5" title="Give 5 stars">★</a><!--
