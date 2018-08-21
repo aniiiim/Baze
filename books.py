@@ -1,7 +1,9 @@
 # uvozimo ustrezne podatke za povezavo
 
+
 import auth
-auth.db = "sem2018_anamarijam" #% auth.user
+auth.db = "sem2018_%s" % auth.user
+
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
@@ -303,14 +305,15 @@ def uvozi_book_tags():
     
 def pravice():
     cur.execute("""
-        GRANT ALL ON ALL TABLES IN SCHEMA public TO tejar;
-        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO tejar;
-        GRANT CONNECT ON DATABASE sem2018_anamarijam TO tejar;
-        GRANT ALL ON ALL TABLES IN SCHEMA public TO katarinak;
-        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO katarinak;
-        GRANT CONNECT ON DATABASE sem2018_anamarijam TO katarinak;
+        GRANT ALL ON ALL TABLES IN SCHEMA public TO tejar WITH GRANT OPTION;
+        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO tejar WITH GRANT OPTION;
+        GRANT CONNECT ON DATABASE sem2018_anamarijam TO tejar WITH GRANT OPTION;
+        GRANT ALL ON ALL TABLES IN SCHEMA public TO katarinak WITH GRANT OPTION;
+        GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO katarinak WITH GRANT OPTION;
+        GRANT CONNECT ON DATABASE sem2018_anamarijam TO katarinak WITH GRANT OPTION;
         GRANT ALL ON SCHEMA public TO katarinak;
         GRANT ALL ON SCHEMA public TO tejar;
+        GRANT CONNECT ON DATABASE sem2018_anamarijam TO javnost;
         GRANT ALL ON SCHEMA public TO javnost;
         GRANT SELECT ON ALL TABLES IN SCHEMA public TO javnost;
     """)

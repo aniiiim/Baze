@@ -5,7 +5,7 @@
 from bottle import *
 
 # uvozimo ustrezne podatke za povezavo
-import auth
+import  auth
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
@@ -63,56 +63,57 @@ def index():
 ##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
 ##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
-    curuser=get_user()
-    query=dict(request.query)
-    qstring = str(request.query_string)
-    qstring = re.sub('&?page=\d','', qstring, flags=re.IGNORECASE)
-    pagenr = request.query.page or 1
-    ORstring='''SELECT * from knjige
-                WHERE 1=1\n'''
-    parameters=[]
-    try:
-        krnekaj= query['search']
-    except:
-        query['search']=''
-    
-    if query['search'] != '': 
-        ORstring += '''AND (LOWER(title) LIKE LOWER(%s) )'''
-        parameters = parameters + ['%'+query['search']+'%']
-        print('%'+query['search']+'%')
-
-    ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
-    cur.execute(ORstring,parameters)
-    predmeti=cur.fetchall()
+##    curuser=get_user()
+##    query=dict(request.query)
+##    qstring = str(request.query_string)
+##    qstring = re.sub('&?page=\d','', qstring, flags=re.IGNORECASE)
+##    pagenr = request.query.page or 1
+##    ORstring='''SELECT * from knjige
+##                WHERE 1=1\n'''
+##    parameters=[]
+##    try:
+##        krnekaj= query['search']
+##    except:
+##        query['search']=''
+##    
+##    if query['search'] != '': 
+##        ORstring += '''AND (LOWER(title) LIKE LOWER(%s) )'''
+##        parameters = parameters + ['%'+query['search']+'%']
+##        print('%'+query['search']+'%')
+##
+##    ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
+##    cur.execute(ORstring,parameters)
+##    predmeti=cur.fetchall()
     
     return template('index.html',
-                    qstring=qstring,                    
-                    predmeti=predmeti,
-                    query=query,
-                    atributi=[],
-                    logged=curuser[2],
                     najboljsi=seznam)
-
+##                    qstring=qstring,                    
+##                    predmeti=predmeti,
+##                    query=query,
+##                    atributi=[],
+##                    logged=curuser[2],
+##                    
+##
 @get('/product_details.html')
 def podrobnosti():
     return template('product_details.html')
 
 @get("/item/<book_id>/")
 def item_get(book_id):
-##    cur.execute( ''' SELECT * FROM knjige
-##         where book_id = %s''',[book_id])
-##    vse=cur.fetchall()
-##    #slike
-##    cur.execute(''' SELECT book_id,image_url FROM knjige
-##        where book_id= %s''',[book_id])
-##    slike=cur.fetchone()
-##
-##    cur.execute('''SELECT book_id,authors,title,
-##                    owner_id,original_publication_year,average_rating,image_url,
-##                    user_id,username,ime,priimek,email FROM knjige
-##                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
-##                    where book_id = %s''',[book_id])
-##    item=cur.fetchall()
+    cur.execute( ''' SELECT * FROM knjige
+         where book_id = %s''',[book_id])
+    vse=cur.fetchall()
+    #slike
+    cur.execute(''' SELECT book_id,image_url FROM knjige
+        where book_id= %s''',[book_id])
+    slike=cur.fetchone()
+
+    cur.execute('''SELECT book_id,authors,title,
+                    owner_id,original_publication_year,average_rating,image_url,
+                    user_id,username,ime,priimek,email FROM knjige
+                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
+                    where book_id = %s''',[book_id])
+    item=cur.fetchall()
     return template('product_details.html')
 
 ##@post("/item/<book_id>/")
