@@ -159,7 +159,6 @@ def products():
                     pagenr= int(pagenr),
                     qstring=qstring,
                     vse=vse,
-                    #slike=slike,
                     query=query)
 
 @route("/products.html")
