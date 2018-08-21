@@ -5,7 +5,7 @@
 from bottle import *
 
 # uvozimo ustrezne podatke za povezavo
-import  auth
+import  auth_public as auth
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras

@@ -4,6 +4,8 @@
 import auth
 auth.db = "sem2018_%s" % auth.user
 
+##import auth
+##auth.db = "sem2018_anamarijam" #% auth.user
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
@@ -157,8 +159,7 @@ def ustvari_books():
 def ustvari_book_tags():
     cur.execute ("""
        CREATE TABLE book_tags (
-            book_tags_id SERIAL PRIMARY KEY,
-            goodreads_book_id INTEGER NOT NULL,
+            goodreads_book_id NUMERIC,
             tag_id INTEGER NOT NULL REFERENCES tags(tag_id),
             count INTEGER
             );
@@ -290,13 +291,13 @@ def uvozi_book_tags():
             i=i+1
             try:
                 r = [ None if x in ('', '-') else x for x in r]
-                r= r[0:(len(r))]
+                r= r[1:(len(r))]
                 #print( r,len(r))
                 cur.execute("""
                     INSERT INTO book_tags
-                    (goodreads_book_id,tag_id, count)
-                    VALUES (%s,%s,%s)
-                    RETURNING book_tags_id
+                    (tag_id, count)
+                    VALUES (%s,%s)
+                    RETURNING goodreads_book_id
                 """, r)
                 rid, = cur.fetchone()
             except Exception as ex:
