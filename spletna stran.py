@@ -5,7 +5,7 @@
 from bottle import *
 
 # uvozimo ustrezne podatke za povezavo
-import  auth_public as auth
+import   auth
 
 # uvozimo psycopg2
 import psycopg2, psycopg2.extensions, psycopg2.extras
@@ -100,13 +100,11 @@ def podrobnosti():
 
 @get("/item/<book_id>/")
 def item_get(book_id):
-    cur.execute( ''' SELECT * FROM knjige
+    
+    cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM knjige
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
-    #slike
-    cur.execute(''' SELECT book_id,image_url FROM knjige
-        where book_id= %s''',[book_id])
-    slike=cur.fetchone()
+  
 
     cur.execute('''SELECT book_id,authors,title,
                     owner_id,original_publication_year,average_rating,image_url,
@@ -114,29 +112,31 @@ def item_get(book_id):
                     JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
                     where book_id = %s''',[book_id])
     item=cur.fetchall()
-    return template('product_details.html')
+    return template('product_details.html',
+                        vse=vse)
 
-##@post("/item/<book_id>/")
-##def item_post(book_id):
-##    cur.execute( ''' SELECT * FROM knjige
-##         where book_id = %s''',[book_id])
-##    vse=cur.fetchall()
-##    #slike
-##    cur.execute(''' SELECT book_id,image_url FROM knjige
-##        where book_id= %s''',[book_id])
-##    slike=cur.fetchall()
-##
-##    cur.execute('''SELECT book_id,authors,title,
-##                    owner_id,original_publication_year,average_rating,image_url,
-##                    user_id,username,ime,priimek,email FROM knjige
-##                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
-##                    where book_id = %s''',[book_id])
-##    item=cur.fetchone()
-##
-##    return template("product-details.html",
-##                           slike=slike,
-##                           atributi=atributi,
-##                           item = item)
+@post("/item/<book_id>/")
+def item_post(book_id):
+    curuser = get_user(auto_login = True)
+    cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM knjige
+         where book_id = %s''',[book_id])
+    vse=cur.fetchall()
+
+    cur.execute('''SELECT book_id,authors,title,
+                    owner_id,original_publication_year,average_rating,image_url,
+                    user_id,username,ime,priimek,email FROM knjige
+                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
+                    where book_id = %s''',[book_id])
+    item=cur.fetchone()
+
+    wish=request.forms.get("wish")
+    if wish is not None:
+        cur.execute('''INSERT INTO wish (book_id,isbn,authors,original_publication_year, original_title, title, image_url,user_id)
+                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',[book_id,vse[0][1],vse[0][2],vse[0][4],vse[0][5],vse[0][3],vse[0][7],curuser[0]]) #zapiši transakcijo
+
+    return template("product-details.html",
+                           vse=vse,
+                           item = item)
 
 @route("/four-col.html")
 def main():

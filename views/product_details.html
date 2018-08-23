@@ -112,32 +112,33 @@ Body Section
     <li class="active">Preview</li>
     </ul>	
 	<div class="well well-small">
-	<div class="row-fluid">
-			<div class="span5">
-			<div id="myCarousel" class="carousel slide cntr">
-                <div class="carousel-inner">
-                  <div class="item active">
-                   <a href="#"> <img src="/static/img/a.jpg" alt="" style="width:100%"></a>
-                  </div>
-                  <div class="item">
-                     <a href="#"> <img src="/static/img/b.jpg" alt="" style="width:100%"></a>
-                  </div>
-                  <div class="item">
-                    <a href="#"> <img src="/static/img/e.jpg" alt="" style="width:100%"></a>
-                  </div>
-                </div>
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-            </div>
-			</div>
+	<div class="row-height">
 			<div class="span7">
-				<h3>Naslov knjige</h3>
+				<h3>{{vse[0][3]}}</h3>
 				<hr class="soft"/>
+				<a href="#"> <img src={{vse[0][7]}} alt="" style="width:50%"></a>
+			</div>
+			
+			<div class="col-sm-7 col-height">
+							<div class="product-information"><!--/product-information-->
+								
+								<form method="post" onsubmit="return ('Item addded to  Wish List!');">
+								<div style="width:100%" class="row">
+									<div class="col-sm-5 buyout"><span>
+									
+									<div  class="col-sm-7 buyout">
+										<button onclick="submit" name="wish" value="1" class="btn btn-fefault cart">
+											<i class="fa fa-shopping-cart"></i>
+											Add to Wish List
+										</button>
+									</div>
+									</div>
+								</div>
+								</form>
+								<br><br>
+							</div><!--/product-information-->
 			</div>
 			</div>
-				<hr class="softn clr"/>
-
-
             <ul id="productDetail" class="nav nav-tabs">
               <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
             </ul>
@@ -146,12 +147,12 @@ Body Section
 			  <h4>Product Information</h4>
                 <table class="table table-striped">
 				<tbody>
-				<tr class="techSpecRow"><td class="techSpecTD1">Avtor:</td><td class="techSpecTD2">Black</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Style:</td><td class="techSpecTD2">Apparel,Sports</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Season:</td><td class="techSpecTD2">spring/summer</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Usage:</td><td class="techSpecTD2">fitness</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Sport:</td><td class="techSpecTD2">122855031</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Brand:</td><td class="techSpecTD2">Shock Absorber</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Avtor: </td><td class="techSpecTD2">{{vse[0][2]}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Originalen naslov:</td><td class="techSpecTD2">{{vse[0][5]}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Leto izdaje:</td><td class="techSpecTD2">{{vse[0][4]}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">isbn:</td><td class="techSpecTD2">{{vse[0][1]}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Povprečna ocena:</td><td class="techSpecTD2">{{vse[0][6]}}</td></tr>
+			
 				</tbody>
 				</table>
 			</div>

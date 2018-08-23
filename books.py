@@ -43,55 +43,21 @@ def ustvari_books():
             """)
     conn.commit()
 
-def wish():
+def ustvari_wish():
     cur.execute("""
         CREATE TABLE wish(
         book_id INTEGER REFERENCES books(book_id),
+        isbn TEXT,
         authors TEXT,
+        original_publication_year NUMERIC,
+        original_title TEXT,
         title TEXT,
         image_url TEXT ,
         user_id INTEGER 
         );
         """)
     conn.commit()
-
-def ustvari_knjige():
-    cur.execute("""
-        CREATE TABLE knjige (
-            book_id SERIAL PRIMARY KEY,
-            goodreads_book_id NUMERIC NOT NULL,
-            best_book_id NUMERIC NOT NULL,
-            work_id NUMERIC NOT NULL,
-            books_count NUMERIC NOT NULL,
-            isbn TEXT,
-            isbn_13 TEXT,
-            authors TEXT NOT NULL,
-            original_publication_year NUMERIC,
-            original_title TEXT,
-            title TEXT NOT NULL,
-            language_code TEXT,
-            average_rating NUMERIC NOT NULL,
-            ratings_count NUMERIC NOT NULL,
-            work_ratings_count NUMERIC NOT NULL,
-            work_text_reviews_count NUMERIC NOT NULL,
-            ratings_1 NUMERIC,
-            ratings_2 NUMERIC,
-            ratings_3 NUMERIC,
-            ratings_4 NUMERIC,
-            ratings_5 NUMERIC,
-            image_url TEXT,
-            small_image_url TEXT
-            );
-            """)
-    conn.commit()
-    
-def posodobi_knjige():
-    cur.execute("""
-    ALTER TABLE knjige
-    ADD owner_id INT REFERENCES uporabnik(user_id) ON DELETE CASCADE;
-            """)
-    conn.commit()
-    
+  
 def ustvari_tabelo():
     cur.execute("""
             CREATE TABLE ratings (
@@ -126,35 +92,6 @@ def ustvari_uporabnik():
       """ )
     conn.commit()
 
-def ustvari_books():
-    cur.execute ("""
-       CREATE TABLE books (
-            book_id SERIAL PRIMARY KEY,
-            goodreads_book_id NUMERIC NOT NULL,
-            best_book_id NUMERIC NOT NULL,
-            work_id NUMERIC NOT NULL,
-            books_count NUMERIC NOT NULL,
-            isbn TEXT,
-            isbn_13 TEXT,
-            authors TEXT NOT NULL,
-            original_publication_year NUMERIC,
-            original_title TEXT,
-            title TEXT NOT NULL,
-            language_code TEXT,
-            average_rating NUMERIC NOT NULL,
-            ratings_count NUMERIC NOT NULL,
-            work_ratings_count NUMERIC NOT NULL,
-            work_text_reviews_count NUMERIC NOT NULL,
-            ratings_1 NUMERIC,
-            ratings_2 NUMERIC,
-            ratings_3 NUMERIC,
-            ratings_4 NUMERIC,
-            ratings_5 NUMERIC,
-            image_url TEXT,
-            small_image_url TEXT
-            );
-      """ )
-    conn.commit()
 
 def ustvari_book_tags():
     cur.execute ("""
@@ -320,6 +257,7 @@ def pravice():
         GRANT SELECT ON ALL TABLES IN SCHEMA public TO javnost;
     """)
     conn.commit()
+
 #od baze ze odvežeš conn.close()
 
 conn = psycopg2.connect(database=auth.db, host=auth.host, user=auth.user, password=auth.password)
