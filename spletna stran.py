@@ -100,20 +100,15 @@ def podrobnosti():
 
 @get("/item/<book_id>/")
 def item_get(book_id):
-    
+    curuser = get_user()
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM knjige
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
   
-
-    cur.execute('''SELECT book_id,authors,title,
-                    owner_id,original_publication_year,average_rating,image_url,
-                    user_id,username,ime,priimek,email FROM knjige
-                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
-                    where book_id = %s''',[book_id])
-    item=cur.fetchall()
     return template('product_details.html',
-                        vse=vse)
+                    logged=curuser[2],
+                    vse=vse,
+                    username=None)
 
 @post("/item/<book_id>/")
 def item_post(book_id):
@@ -134,16 +129,17 @@ def item_post(book_id):
         cur.execute('''INSERT INTO wish (book_id,isbn,authors,original_publication_year, original_title, title, image_url,user_id)
                      VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',[book_id,vse[0][1],vse[0][2],vse[0][4],vse[0][5],vse[0][3],vse[0][7],curuser[0]]) #zapiši transakcijo
 
-    return template("product-details.html",
-                           vse=vse,
-                           item = item)
+    return template("product_details.html",
+                    vse=vse,
+                    logged=curuser[2],
+                    username=None)
 
 @route("/four-col.html")
 def main():
     redirect("/all")
 @get('/all')
 def products():
-    cur.execute ("""SELECT authors, title, average_rating, image_url FROM books ORDER BY title ASC""")
+    cur.execute ("""SELECT authors, title, average_rating, image_url, book_id FROM books ORDER BY title ASC""")
     query = dict(request.query)
     qstring = str(request.query_string)
     qstring = re.sub('&?page=\d+','', qstring, flags=re.IGNORECASE)

@@ -52,9 +52,9 @@ Navigation Bar Section
 		  <div class="nav-collapse">
 			<ul class="nav">
 			  <li class="active"><a href="/books">Home	</a></li>
-			  <li class=""><a href="four-col.html">Books</a></li>
+			  <li class=""><a href="/all">Books</a></li>
 			  <li class=""><a href="/register">Register</a></li>
-			  <li class=""><a href="account.html">Account</a></li>
+			  <li class=""><a href="/account">Account</a></li>
 			</ul>
 			<form action="#" class="navbar-search pull-left">
 			  <input type="text" placeholder="Search" class="search-query span2">
@@ -107,8 +107,8 @@ Body Section
 	</div>
 	<div class="span9">
     <ul class="breadcrumb">
-    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-    <li><a href="products.html">Items</a> <span class="divider">/</span></li>
+    <li><a href="/books">Home</a> <span class="divider">/</span></li>
+    <li><a href="/all">Items</a> <span class="divider">/</span></li>
     <li class="active">Preview</li>
     </ul>	
 	<div class="well well-small">
@@ -122,12 +122,12 @@ Body Section
 			<div class="col-sm-7 col-height">
 							<div class="product-information"><!--/product-information-->
 								
-								<form method="post" onsubmit="return ('Item addded to  Wish List!');">
+								<form method="post" onsubmit="return confirm('Ali ste prepričani da želite knjigo dodati v Wish List?');">
 								<div style="width:100%" class="row">
 									<div class="col-sm-5 buyout"><span>
 									
 									<div  class="col-sm-7 buyout">
-										<button onclick="submit" name="wish" value="1" class="btn btn-fefault cart">
+										<button onclick="submit" name="wish" value="1" class="shopBtn">
 											<i class="fa fa-shopping-cart"></i>
 											Add to Wish List
 										</button>
