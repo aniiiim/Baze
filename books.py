@@ -134,6 +134,13 @@ def pobrisi_book_tags():
       """ )
     conn.commit()
 
+def pobrisi_knjige():
+    cur.execute ("""
+       DROP TABLE IF EXISTS knjige CASCADE;
+      """ )
+    conn.commit()
+
+
 def uvozi_podatke():
     with open("books.csv", encoding="UTF-8") as f:
         rd= csv.reader(f)
@@ -153,25 +160,7 @@ def uvozi_podatke():
                 print('Napaka:',r)
                 raise ex
     conn.commit()
-def uvozi_knjige():
-    with open("books.csv", encoding="UTF-8") as f:
-        rd= csv.reader(f)
-        next(rd) # izpusti naslovno vrstico
-        for r in rd:
-            try:
-                r = [None if x in ('', '-') else x for x in r]
-                r= r[1:(len(r))]
-                cur.execute("""
-                    INSERT INTO knjige
-                    (goodreads_book_id,best_book_id, work_id, books_count, isbn, isbn_13, authors, original_publication_year, original_title, title, language_code, average_rating,ratings_count,work_ratings_count,work_text_reviews_count, ratings_1, ratings_2, ratings_3, ratings_4, ratings_5, image_url, small_image_url)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)
-                    RETURNING book_id
-                """, r)
-                rid, = cur.fetchone()
-            except Exception as ex:
-                print('Napaka:',r)
-                raise ex
-    conn.commit()
+
 def uvozi_ratings():
     with open("ratings.csv", encoding="UTF-8") as f:
         #rd = UnicodeReader(f)

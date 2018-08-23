@@ -73,7 +73,7 @@ def podrobnosti():
 @get("/item/<book_id>/")
 def item_get(book_id):
     curuser = get_user()
-    cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM knjige
+    cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
   
@@ -85,14 +85,14 @@ def item_get(book_id):
 @post("/item/<book_id>/")
 def item_post(book_id):
     curuser = get_user(auto_login = True)
-    cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM knjige
+    cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
 
     cur.execute('''SELECT book_id,authors,title,
                     owner_id,original_publication_year,average_rating,image_url,
-                    user_id,username,ime,priimek,email FROM knjige
-                    JOIN uporabnik ON uporabnik.user_id=knjige.owner_id
+                    user_id,username,ime,priimek,email FROM kbooks
+                    JOIN uporabnik ON uporabnik.user_id=books.owner_id
                     where book_id = %s''',[book_id])
     item=cur.fetchone()
 
@@ -111,13 +111,12 @@ def main():
     redirect("/all")
 @get('/all')
 def products():
-    cur.execute ("""SELECT authors, title, average_rating, image_url, book_id FROM books ORDER BY title ASC""")
     query = dict(request.query)
     qstring = str(request.query_string)
     qstring = re.sub('&?page=\d+','', qstring, flags=re.IGNORECASE)
     pagenr = request.query.page or 1
-    vse = cur.fetchall()
-    ORstring='''SELECT * from knjige
+    
+    ORstring='''SELECT  authors, title, average_rating, image_url, book_id FROM books
                 WHERE 1=1\n'''
     parameters=[]
     try:
@@ -143,7 +142,7 @@ def products():
     return template('four-col.html',
                     pagenr= int(pagenr),
                     qstring=qstring,
-                    vse=vse,
+                    vse=predmeti,
                     query=query)
 
 @route("/products.html")
