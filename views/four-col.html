@@ -21,6 +21,21 @@
 
 	<!-- Favicons -->
     <link rel="shortcut icon" href="/static/ico/favicon.ico">
+	<style>
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #c1c1c1;
+        font-size: 22px;
+    }
+    </style>
   </head>
 <body>
 <!-- 
@@ -119,29 +134,29 @@ Three column view
 						</li>
 					%end
 					</div>
-					<div class='row'>
+					<div class='text-center'>
 						<ul class="pagination">	
 							%if pagenr > 1:
-							<li><a href="?{{qstring}}&page={{pagenr-1}}">&laquo;</a></li>
+							<a href="?{{qstring}}&page={{pagenr-1}}">&laquo;</a>
 							%end
 							
 							%if pagenr-2>1:
 							
-							<li><a href="?{{qstring}}&page=1">1</a></li>
-							<li><a href="">...</a></li>
+							<a href="?{{qstring}}&page=1">1</a>
+							<a href="">...</a>
 							%end
 							
 							%for i in range(max(1,pagenr-2),min(pagenr+3,ststrani+1)):
-							<li><a href="?{{qstring}}&page={{i}}">{{i}}</a></li>
+							<a href="?{{qstring}}&page={{i}}">{{i}}</a>
 							%end
 							
 							%if pagenr+3<ststrani+1:
-							<li><a href="">...</a></li>
-							<li><a href="?{{qstring}}&page={{ststrani}}">{{ststrani}}</a></li>
+							<a href="">...</a>
+							<a href="?{{qstring}}&page={{ststrani}}">{{ststrani}}</a>
 							%end
 							
 							%if pagenr<ststrani:
-							<li><a href="?{{qstring}}&page={{pagenr+1}}">&raquo;</a></li>
+							<a href="?{{qstring}}&page={{pagenr+1}}">&raquo;</a>
 							%end
 							
 						</ul>
