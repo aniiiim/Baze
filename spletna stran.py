@@ -63,37 +63,9 @@ def index():
 ##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
 ##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
-##    curuser=get_user()
-##    query=dict(request.query)
-##    qstring = str(request.query_string)
-##    qstring = re.sub('&?page=\d','', qstring, flags=re.IGNORECASE)
-##    pagenr = request.query.page or 1
-##    ORstring='''SELECT * from knjige
-##                WHERE 1=1\n'''
-##    parameters=[]
-##    try:
-##        krnekaj= query['search']
-##    except:
-##        query['search']=''
-##    
-##    if query['search'] != '': 
-##        ORstring += '''AND (LOWER(title) LIKE LOWER(%s) )'''
-##        parameters = parameters + ['%'+query['search']+'%']
-##        print('%'+query['search']+'%')
-##
-##    ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
-##    cur.execute(ORstring,parameters)
-##    predmeti=cur.fetchall()
-    
     return template('index.html',
                     najboljsi=seznam)
-##                    qstring=qstring,                    
-##                    predmeti=predmeti,
-##                    query=query,
-##                    atributi=[],
-##                    logged=curuser[2],
-##                    
-##
+
 @get('/product_details.html')
 def podrobnosti():
     return template('product_details.html')
@@ -145,6 +117,23 @@ def products():
     qstring = re.sub('&?page=\d+','', qstring, flags=re.IGNORECASE)
     pagenr = request.query.page or 1
     vse = cur.fetchall()
+    ORstring='''SELECT * from knjige
+                WHERE 1=1\n'''
+    parameters=[]
+    try:
+        krnekaj= query['search']
+    except:
+        query['search']=''
+    
+    if query['search'] != '': 
+        ORstring += '''AND (LOWER(title) LIKE LOWER(%s) )'''
+        parameters = parameters + ['%'+query['search']+'%']
+        print('%'+query['search']+'%')
+
+    ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
+    cur.execute(ORstring,parameters)
+    predmeti=cur.fetchall()
+    
     #iz query stringov poberemo vse (filtri in št strani)
     #ta tabela je potrebna zaradi razlicnih koncnic (jpg, png, etc.)
 ##    cur.execute("SELECT book_id,image_url FROM books WHERE book_id IS NOT NULL ",[[i[0] for i in vse]])

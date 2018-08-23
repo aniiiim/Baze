@@ -57,7 +57,15 @@ Navigation Bar Section
 			  <li class=""><a href="account.html">My Account</a></li>
 			</ul>
 			<form action="#" class="navbar-search pull-left">
-			  <input type="text" placeholder="Search" class="search-query span2">
+			  <input type="text" name="search" placeholder="Search"/
+			  %try:
+			  %if query['search'] != '':
+				value = {{query['search']}}
+			  %end
+			  %except:
+				%pass
+			  %end
+			  >
 			</form>
 			<ul class="nav pull-right">
 			<li class="dropdown">
