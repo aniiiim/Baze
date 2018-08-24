@@ -59,17 +59,17 @@ Navigation Bar Section
 <div class="navbar">
 	  <div class="navbar-inner">
 		<div class="container">
-		  <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-			  <li class="active"><a href="/books">Home	</a></li>
-			  <li class=""><a href="four-col.html">Books</a></li>
-			  <li class=""><a href="/register">Free Register</a></li>
-			  <li class=""><a href="account.html">My Account</a></li>
+			  <li class=""><a href="/books">Home	</a></li>
+			  <li class="active"><a href="four-col.html">Books</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="account.html">Account</a></li>
 			</ul>
 			<form action="#" class="navbar-search pull-left">
 			  <input type="text" name="search" placeholder="Search"/
@@ -86,7 +86,7 @@ Navigation Bar Section
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm">
+				<form class="form-horizontal loginFrm" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
@@ -113,7 +113,29 @@ Body Section
 <!--
 Three column view
 -->
-
+<div class="row">
+<div class="span3" id="sidebar">
+<div class="well well-small">
+	<ul class="nav nav-list">
+		<li><a href="/zanri/drama"><span class="icon-chevron-right"></span>Drama</a></li>
+		<li><a href="/zanri/romance"><span class="icon-chevron-right"></span>Romance</a></li>
+		<li><a href="/zanri/history"><span class="icon-chevron-right"></span>History</a></li>
+		<li><a href="/zanri/thriller"><span class="icon-chevron-right"></span>Thriller</a></li>
+		<li><a href="/zanri/fiction"><span class="icon-chevron-right"></span>Fiction</a></li>
+		<li><a href="/zanri/comics"><span class="icon-chevron-right"></span>Comics</a></li>
+		<li><a href="/zanri/biography"><span class="icon-chevron-right"></span>Biography</a></li>
+		<li><a href="/zanri/science"><span class="icon-chevron-right"></span>Science </a></li>
+		<li><a href="/zanri/children"><span class="icon-chevron-right"></span>Children</a></li>
+		<li><a href="/zanri/classics"><span class="icon-chevron-right"></span>Classics</a></li>
+		<li style="border:0"> &nbsp;</li>
+	</ul>
+</div>
+</div>
+<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li class="active">Books</li>
+    </ul>
 	<h3>Books </h3>
 		<ul class="thumbnails">
 				<div class="col-sm-9 padding-right">
@@ -163,6 +185,8 @@ Three column view
 					</div>
 				</div>
 		</ul>
+</div>
+</div>
 
 		
 <!--
@@ -207,13 +231,14 @@ Footer
  </div>
 <div class="span2">
 <h5>Our Offer</h5>
-<a href="index.html">TOP BOOKS</a><br>
+<a href="/books">TOP BOOKS</a><br>
  </div>
  <div class="span6">
  </div>
  </div>
 </footer>
-</div><!-- /container -->
+</div>
+<!-- /container -->
 
 <div class="copyright">
 <div class="container">

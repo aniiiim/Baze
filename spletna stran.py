@@ -419,6 +419,7 @@ def login_get():
                            napaka=None)
 
 
+
 @post("/register")
 def register_post():
     """Registriraj novega uporabnika."""

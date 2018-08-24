@@ -2,16 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-
+	<title>Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Bootstrap styles -->
     <link href="/static/css/bootstrap.css" rel="stylesheet"/>
     <!-- Customize styles -->
-    <link href="style.css" rel="stylesheet"/>
+    <link href="/static/style.css" rel="stylesheet"/>
     <!-- font awesome styles -->
-	<link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="/static/fonts/css/font-awesome.css" rel="stylesheet">
 		<!--[if IE 7]>
 			<link href="css/font-awesome-ie7.min.css" rel="stylesheet">
 		<![endif]-->
@@ -27,10 +27,12 @@
 <!-- 
 	Upper Header Section 
 -->
-
+<div class="navbar navbar-inverse navbar-fixed-top">
+</div>
 <!--
 Lower Header Section 
 -->
+
 <div class="container">
 <div id="gototop"> </div>
 <header id="header">
@@ -51,11 +53,12 @@ Navigation Bar Section
 			<ul class="nav">
 			  <li class=""><a href="/books">Home	</a></li>
 			  <li class=""><a href="four-col.html">Books</a></li>
-			  <li class=""><a href="/register">Register</a></li>
+			  <li class="active"><a href="/register">Register</a></li>
 			  <li class=""><a href="account.html">Account</a></li>
 			</ul>
-			<form action="#" class="navbar-search pull-left">
-			  <input type="text" placeholder="Search" class="search-query span2">
+			<form action="all" class="navbar-search pull-left">
+			  <input type="text" name= "search" placeholder="Search"/>
+			 
 			</form>
 			<ul class="nav pull-right">
 			<li class="dropdown">
@@ -89,16 +92,16 @@ Body Section
 <div id="sidebar" class="span3">
 <div class="well well-small">
 	<ul class="nav nav-list">
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Drama</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Romance</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>History</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Thriller</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Fiction</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Comics</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Biography</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Science </a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Children</a></li>
-		<li><a href="products.html"><span class="icon-chevron-right"></span>Classics</a></li>
+		<li><a href="/zanri/drama"><span class="icon-chevron-right"></span>Drama</a></li>
+		<li><a href="/zanri/romance"><span class="icon-chevron-right"></span>Romance</a></li>
+		<li><a href="/zanri/history"><span class="icon-chevron-right"></span>History</a></li>
+		<li><a href="/zanri/thriller"><span class="icon-chevron-right"></span>Thriller</a></li>
+		<li><a href="/zanri/fiction"><span class="icon-chevron-right"></span>Fiction</a></li>
+		<li><a href="/zanri/comics"><span class="icon-chevron-right"></span>Comics</a></li>
+		<li><a href="/zanri/biography"><span class="icon-chevron-right"></span>Biography</a></li>
+		<li><a href="/zanri/science"><span class="icon-chevron-right"></span>Science </a></li>
+		<li><a href="/zanri/children"><span class="icon-chevron-right"></span>Children</a></li>
+		<li><a href="/zanri/classics"><span class="icon-chevron-right"></span>Classics</a></li>
 		<li style="border:0"> &nbsp;</li>
 	</ul>
 </div>
@@ -322,7 +325,7 @@ Footer
  </div>
 <div class="span2">
 <h5>Our Offer</h5>
-<a href="index.html">TOP BOOKS</a><br>
+<a href="/books">TOP BOOKS</a><br>
  </div>
  <div class="span6">
  </div>
