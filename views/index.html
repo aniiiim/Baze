@@ -54,22 +54,21 @@ Navigation Bar Section
 			  <li class="active"><a href="/books">Home	</a></li>
 			  <li class=""><a href="four-col.html">Books</a></li>
 			  <li class=""><a href="/register">Register</a></li>
-			  <li class=""><a href="account.html">Account</a></li>
+			  <li class=""><a href="/account">Account</a></li>
 			</ul>
 			<form action="all" class="navbar-search pull-left">
 			  <input type="text" name= "search" placeholder="Search"/>
-			 
 			</form>
 			<ul class="nav pull-right">
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm" method="post">
+				<form class="form-horizontal loginFrm" action="/login/" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
 				  <div class="control-group">
-		      <input type="password" class="form-control" placeholder="Password" name="password1" required>
+		      <input type="password" class="form-control" placeholder="Password" name="password" required>
 		      </div>
 				  <div class="control-group">
 					<label class="checkbox">
@@ -122,7 +121,7 @@ Body Section
 <!--
 -->
 	<div class="well well-small">
-	<h3>Best rated books </h3
+	<h3>Best rated books</h3
 	<hr class="soften"/> 
 		<div class="row">
 		  <ul class="thumbnails">

@@ -59,11 +59,16 @@ def main():
     
 @get('/books')
 def index():
+    uporabnik = get_user()
+    print(uporabnik)
 ##    """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
 ##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
 ##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
     return template('index.html',
+                    username = uporabnik[0],
+                    ime = uporabnik[1],
+                    priimek = uporabnik[2],
                     najboljsi=seznam)
 
 @get('/product_details.html')
@@ -72,19 +77,18 @@ def podrobnosti():
 
 @get("/item/<book_id>/")
 def item_get(book_id):
-    curuser = get_user()
+    uporabnik = get_user()
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
   
     return template('product_details.html',
-                    logged=curuser[2],
                     vse=vse,
                     username=None)
 
 @post("/item/<book_id>/")
 def item_post(book_id):
-    curuser = get_user(auto_login = True)
+    uporabnik = get_user(auto_login = True)
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
@@ -103,7 +107,6 @@ def item_post(book_id):
 
     return template("product_details.html",
                     vse=vse,
-                    logged=curuser[2],
                     username=None)
 
 @route("/four-col.html")
@@ -153,7 +156,7 @@ def products():
 
 @get('/zanri/<zanrid>')
 def zanri_get(zanrid):
-    curuser = get_user()
+    uporabnik = get_user()
     query = dict(request.query)
     qstring = str(request.query_string)
     qstring = re.sub('&?page=\d+','', qstring, flags=re.IGNORECASE)
@@ -302,7 +305,7 @@ def main():
 @get("/login/")
 def login_get():
     """Serviraj formo za login."""
-    #curuser = get_user(auto_redir = True)
+    uporabnik = get_user(auto_redir = True)
     return template("login.html", 
                            napaka=None,
                            username=None)
@@ -375,27 +378,6 @@ def login_post():
         response.set_cookie('username', username, path='/', secret=secret)
         redirect("/")
 
-@post("/login/")
-def login_post():
-    """Obdelaj izpolnjeno formo za prijavo"""
-    # Uporabniško ime, ki ga je uporabnik vpisal v formo
-    username = request.forms.username
-    # Izračunamo MD5 has gesla, ki ga bomo spravili
-    password = password_md5(request.forms.password)
-    # Preverimo, ali se je uporabnik pravilno prijavil
-    #c = baza.cursor()
-    cur.execute("SELECT 1 FROM uporabnik WHERE username=%s AND password=%s",
-              [username, password])
-    if cur.fetchone() is None:
-        # Username in geslo se ne ujemata
-        return template("login.html", #template za login
-                               napaka="Nepravilna prijava",
-                               username=username)
-    else:
-        # Vse je v redu, nastavimo cookie in preusmerimo na glavno stran
-        response.set_cookie('username', username, path='/', secret=secret)
-        redirect("/")
-
 @route("/register.html")
 def main():
     redirect("/register")
@@ -403,7 +385,7 @@ def main():
 @get("/register")
 def login_get():
     """Prikaži formo za registracijo."""
-    #curuser = get_user(auto_redir = True)
+    uporabnik = get_user(auto_redir = True)
     return template("register.html", 
                            username=None,
                            ime=None,
@@ -412,7 +394,7 @@ def login_get():
 @get("/contact")
 def login_get():
     """Prikaži formo za registracijo."""
-    #curuser = get_user(auto_redir = True)
+    uporabnik = get_user(auto_redir = True)
     return template("contact.html", 
                            username=None,
                            ime=None,
@@ -429,7 +411,7 @@ def register_post():
     email = request.forms.email
     password1 = request.forms.password1
     password2 = request.forms.password2
-    #curuser = get_user(auto_redir = True)
+    uporabnik = get_user(auto_redir = True)
     # Ali uporabnik že obstaja?
     #c = baza.cursor()
     cur.execute("SELECT 1 FROM uporabnik WHERE username=%s", [username])

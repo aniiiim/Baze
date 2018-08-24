@@ -51,7 +51,7 @@ Navigation Bar Section
 		  </a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-			  <li class="active"><a href="/books">Home	</a></li>
+			  <li class=""><a href="/books">Home	</a></li>
 			  <li class=""><a href="/all">Books</a></li>
 			  <li class=""><a href="/register">Register</a></li>
 			  <li class=""><a href="/account">Account</a></li>
@@ -63,12 +63,12 @@ Navigation Bar Section
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm">
+				<form class="form-horizontal loginFrm" action="/login/" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
 				  <div class="control-group">
-		      <input type="password" class="form-control" placeholder="Password" name="password1" required>
+		      <input type="password" class="form-control" placeholder="Password" name="password" required>
 		      </div>
 				  <div class="control-group">
 					<label class="checkbox">
@@ -207,12 +207,20 @@ Footer
 <footer class="footer">
 <div class="row-fluid">
 <div class="span2">
+<h5>Your Account</h5>
+<a href="#">YOUR ACCOUNT</a><br>
+ </div>
 <div class="span2">
 <h5>Information</h5>
-<a href="contact.html">CONTACT</a><br>
+<a href="/contact">CONTACT</a><br>
+ </div>
+<div class="span2">
+<h5>Our Offer</h5>
+<a href="/books">TOP BOOKS</a><br>
+ </div>
+ <div class="span6">
  </div>
  </div>
- 
 </footer>
 </div><!-- /container -->
 

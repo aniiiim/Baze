@@ -64,12 +64,12 @@ Navigation Bar Section
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm" method="post">
+				<form class="form-horizontal loginFrm" action="/login/" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
 				  <div class="control-group">
-		      <input type="password" class="form-control" placeholder="Password" name="password1" required>
+		      <input type="password" class="form-control" placeholder="Password" name="password" required>
 		      </div>
 				  <div class="control-group">
 					<label class="checkbox">
@@ -157,6 +157,11 @@ Body Section
 		<button type="submit" class="btn btn-default">Sign up</button>
 		</div>
 	</div>
+	<h3>
+%if napaka is not None:
+{{napaka}}
+%end
+	</h3>
 	</form>
 </div>
 
