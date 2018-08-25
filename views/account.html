@@ -149,7 +149,22 @@ Body Section
 			  <h4>Wish list</h4>
 <table class="table table-striped">
 				<tbody>
-				<tr class="techSpecRow"><td class="techSpecTD1">User name: </td><td class="techSpecTD2">{{uporabnik[1]}}</td></tr>		
+		  %for i in wish:
+			<li class="span4">
+			  <div class="thumbnail" style="height: 320px">
+				<a href="item/{{i[0]}}/"><img src={{i[5]}} alt=""></a>
+				<div class="caption cntr">
+					<p><strong>{{i[2]}}</strong></p>
+					<p>{{i[1]}}</p>
+					<a href="/item/{{i[0]}}/" class="shopBtn"><i ></i>Details</a>
+					<div class="myRating uitext greyText">This book rating</div>
+					{{i[4]}}
+					<br class="clr">
+				</div>	
+			  </div>	
+					
+			</li>
+		   %end
 				</tbody>
 				</table>
 							</div>

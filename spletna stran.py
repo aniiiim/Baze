@@ -108,7 +108,7 @@ def item_post(book_id):
 
     cur.execute('''SELECT book_id,authors,title,
                     owner_id,original_publication_year,average_rating,image_url,
-                    user_id,username,ime,priimek,email FROM kbooks
+                    user_id,username,ime,priimek,email FROM books
                     JOIN uporabnik ON uporabnik.user_id=books.owner_id
                     where book_id = %s''',[book_id])
     item=cur.fetchone()
@@ -238,13 +238,17 @@ def main():
 @get('/account')
 def profil():
     uporabnik=get_user()
+    seznam=top_9()
+    zelje = wish()
     if request.query.logged=="Logout":
         logout()
         redirect("/books")
     return template('account.html',
                     username = uporabnik[1],
                     ime = uporabnik[2],
-                    uporabnik = uporabnik)
+                    uporabnik = uporabnik,
+                    najboljsi = seznam,
+                    wish = zelje)
 
 @route("/contact.html")
 def main():
@@ -530,6 +534,14 @@ def top_9(limit=21):
 ##    # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
     return(najboljsi)
 
+def wish():
+    uporabnik = get_user()
+    cur.execute(
+    """SELECT * FROM wish
+    JOIN books ON books.book_id=wish.book_id  WHERE user_id=%s
+    """, [uporabnik[0]])
+    wish = cur.fetchall()
+    return(wish)
 ######################################################################
 # Glavni program
 
