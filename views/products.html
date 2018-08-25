@@ -61,10 +61,11 @@ Navigation Bar Section
 			 
 			</form>
 			<ul class="nav pull-right">
+			%if username is None:
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>
 				<div class="dropdown-menu">
-				<form class="form-horizontal loginFrm" action="/login/" method="post" >
+				<form class="form-horizontal loginFrm" action="/login/" method="post">
 				  <div class="control-group">
           <input type="text" class="form-control" placeholder="User name" name="username" required>
           </div>
@@ -80,6 +81,14 @@ Navigation Bar Section
 				</form>
 				</div>
 			</li>
+			%else:
+			Logged in as <b>{{username}}.</b>
+			<form  method="get">
+				<input class="shopBtn btn-block" type="submit" value="Logout" 
+					 name="logged" id="frm1_submit" />
+			</form>
+			
+			%end
 			</ul>
 		  </div>
 		</div>

@@ -65,6 +65,9 @@ def index():
 ##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
 ##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
     return template('index.html',
                     username = uporabnik[1],
                     ime = uporabnik[2],
@@ -72,11 +75,20 @@ def index():
 
 @get('/product_details.html')
 def podrobnosti():
-    return template('product_details.html')
+    uporabnik = get_user()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
+    return template('product_details.html',
+                    username = uporabnik[1],
+                    ime = uporabnik[2])
 
 @get("/item/<book_id>/")
 def item_get(book_id):
     uporabnik = get_user()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
@@ -84,7 +96,8 @@ def item_get(book_id):
   
     return template('product_details.html',
                     vse=vse,
-                    username=None)
+                    username = uporabnik[1],
+                    ime = uporabnik[2])
 
 @post("/item/<book_id>/")
 def item_post(book_id):
@@ -135,7 +148,10 @@ def products():
     ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
     cur.execute(ORstring,parameters)
     predmeti=cur.fetchall()
-    
+    uporabnik = get_user()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
     #iz query stringov poberemo vse (filtri in št strani)
     #ta tabela je potrebna zaradi razlicnih koncnic (jpg, png, etc.)
 ##    cur.execute("SELECT book_id,image_url FROM books WHERE book_id IS NOT NULL ",[[i[0] for i in vse]])
@@ -146,6 +162,8 @@ def products():
                     pagenr= int(pagenr),
                     qstring=qstring,
                     vse=predmeti,
+                    username = uporabnik[1],
+                    ime = uporabnik[2],
                     query=query)
 
 
@@ -157,6 +175,9 @@ def products():
 @get('/zanri/<zanrid>')
 def zanri_get(zanrid):
     uporabnik = get_user()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
     query = dict(request.query)
     qstring = str(request.query_string)
     qstring = re.sub('&?page=\d+','', qstring, flags=re.IGNORECASE)
@@ -194,14 +215,22 @@ def zanri_get(zanrid):
                     qstring=qstring,
                     vse=predmeti,
                     zanri=zanri,
-                    query=query)
+                    query=query,
+                    username = uporabnik[1],
+                    ime = uporabnik[2],)
 
 @route("/login.html")
 def main():
     redirect("/login")
 @get('/login')
 def login():
-    return template('login.html')
+    uporabnik=get_user()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
+    return template('login.html',
+                    username = uporabnik[1],
+                    ime = uporabnik[2])
 
 @route("/account.html")
 def main():
@@ -209,9 +238,13 @@ def main():
 @get('/account')
 def profil():
     uporabnik=get_user()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
     return template('account.html',
-                    uporabnik=uporabnik)
-
+                    username = uporabnik[1],
+                    ime = uporabnik[2],
+                    uporabnik = uporabnik)
 
 @route("/contact.html")
 def main():
@@ -314,8 +347,8 @@ def login_get():
 
 def logout():
     """Pobriši cookie in preusmeri na login."""
-    bottle.response.delete_cookie('username')
-    bottle.redirect('/login/')
+    response.delete_cookie('username')
+    #redirect('/login/')
 
 @post("/login/")
 def login_post():
@@ -388,20 +421,25 @@ def main():
 def login_get():
     """Prikaži formo za registracijo."""
     uporabnik = get_user(auto_redir = True)
-    return template("register.html", 
-                           username=None,
-                           ime=None,
-                           napaka=None)
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
+    return template("register.html",
+                    username = uporabnik[1],
+                    ime = uporabnik[2],
+                    napaka=None)
 
 @get("/contact")
 def login_get():
     """Prikaži formo za registracijo."""
     uporabnik = get_user(auto_redir = True)
-    return template("contact.html", 
-                           username=None,
-                           ime=None,
-                           napaka=None)
-
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
+    return template("contact.html",
+                    username = uporabnik[1],
+                    ime = uporabnik[2],
+                    napaka=None)
 
 
 @post("/register")
