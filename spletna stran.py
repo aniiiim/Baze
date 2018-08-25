@@ -66,9 +66,8 @@ def index():
 ##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
     return template('index.html',
-                    username = uporabnik[0],
-                    ime = uporabnik[1],
-                    priimek = uporabnik[2],
+                    username = uporabnik[1],
+                    ime = uporabnik[2],
                     najboljsi=seznam)
 
 @get('/product_details.html')
@@ -81,6 +80,7 @@ def item_get(book_id):
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
+    print(uporabnik)
   
     return template('product_details.html',
                     vse=vse,
@@ -208,10 +208,9 @@ def main():
     redirect("/account")  
 @get('/account')
 def profil():
-    uporabnik = get_user()
-    print(uporabnik)
+    uporabnik=get_user()
     return template('account.html',
-                    ime=uporabnik[0])
+                    uporabnik=uporabnik)
 
 
 @route("/contact.html")
@@ -258,7 +257,7 @@ def get_user(auto_login = False,auto_redir=False):
     username = request.get_cookie('username', secret=secret)
     # Preverimo, ali ta uporabnik obstaja
     if username is not None:
-        cur.execute("SELECT user_id, username, ime FROM uporabnik WHERE username=%s",
+        cur.execute("SELECT user_id, username, ime, priimek, email FROM uporabnik WHERE username=%s",
                   [username])
         r = cur.fetchone()
         if r is not None:
@@ -268,7 +267,7 @@ def get_user(auto_login = False,auto_redir=False):
     if auto_login:
         redirect('/login/')
     else:
-        return [None,None, None]
+        return [None,None, None, None, None]
 
 def main():
         """Glavna stran."""
