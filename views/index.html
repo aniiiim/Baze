@@ -59,6 +59,20 @@ Navigation Bar Section
 			<form action="all" class="navbar-search pull-left">
 			  <input type="text" name= "search" placeholder="Search"/>
 			</form>
+			        %if defined('ime'):
+			   <div class="navbar-collapse collapse">
+
+          <ul class="nav navbar-nav navbar-right">
+
+            <li><a href="/user/{{username}}/">{{ime}}</a></li>
+
+            <li><a href="/logout/">odjava</a></li>
+
+          </ul>
+
+        </div><!--/.navbar-collapse -->
+
+        %end
 			<ul class="nav pull-right">
 			<li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Login <b class="caret"></b></a>

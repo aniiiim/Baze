@@ -196,7 +196,6 @@ def zanri_get(zanrid):
                     zanri=zanri,
                     query=query)
 
-
 @route("/login.html")
 def main():
     redirect("/login")
@@ -206,10 +205,14 @@ def login():
 
 @route("/account.html")
 def main():
-    redirect("/account")
+    redirect("/account")  
 @get('/account')
 def profil():
-    return template('account.html')
+    uporabnik = get_user()
+    print(uporabnik)
+    return template('account.html',
+                    ime=uporabnik[0])
+
 
 @route("/contact.html")
 def main():
