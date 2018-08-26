@@ -105,6 +105,9 @@ def item_post(book_id):
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
+    if request.query.logged=="Logout":
+        logout()
+        redirect("/books")
 
     wish=request.forms.get("wish")
     if wish is not None:

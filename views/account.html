@@ -116,7 +116,7 @@ Body Section
 	</div>
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li><a href="/books">Home</a> <span class="divider">/</span></li>
 		<li class="active">Account</li>
     </ul> 
     <ul id="productDetail" class="nav nav-tabs">
@@ -147,8 +147,6 @@ Body Section
             <div id="myTabContent" class="tab-content tabWrapper">
             <div class="tab-pane fade active in" id="home">
 			  <h4>Wish list</h4>
-			<table class="features_items">
-				<tbody>
 				%for i in wish:
 				<li class="span4">
 					<div class="thumbnail" style="height: auto">
@@ -157,13 +155,10 @@ Body Section
 							<p><strong>{{i[4]}}</strong></p>
 							<p>{{i[2]}}</p>
 							<a href="/item/{{i[0]}}/" class="shopBtn"><i ></i>Details</a>
-							<br class="clr">
 						</div>	
 					</div>		
 				</li>
 				%end
-				</tbody>
-			</table>
 							</div>
 			<div class="tab-pane fade" id="profile">
 			<div class="row-fluid">	  
@@ -211,7 +206,7 @@ Footer
 <div class="row-fluid">
 <div class="span2">
 <h5>Your Account</h5>
-<a href="#">YOUR ACCOUNT</a><br>
+<a href="account.html">YOUR ACCOUNT</a><br>
  </div>
 <div class="span2">
 <h5>Information</h5>
