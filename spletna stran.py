@@ -115,7 +115,8 @@ def item_post(book_id):
                      VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',[book_id,vse[0][1],vse[0][2],vse[0][4],vse[0][5],vse[0][3],vse[0][7],uporabnik[0]]) #dodaj v wish
     return template("product_details.html",
                     vse=vse,
-                    username=None)
+                    username = uporabnik[1],
+                    ime = uporabnik[2])
 
 @route("/four-col.html")
 def main():
