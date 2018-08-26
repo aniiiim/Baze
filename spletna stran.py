@@ -106,18 +106,10 @@ def item_post(book_id):
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
 
-    cur.execute('''SELECT book_id,authors,title,
-                    owner_id,original_publication_year,average_rating,image_url,
-                    user_id,username,ime,priimek,email FROM books
-                    JOIN uporabnik ON uporabnik.user_id=books.owner_id
-                    where book_id = %s''',[book_id])
-    item=cur.fetchone()
-
     wish=request.forms.get("wish")
     if wish is not None:
         cur.execute('''INSERT INTO wish (book_id,isbn,authors,original_publication_year, original_title, title, image_url,user_id)
-                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',[book_id,vse[0][1],vse[0][2],vse[0][4],vse[0][5],vse[0][3],vse[0][7],curuser[0]]) #zapiši transakcijo
-
+                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',[book_id,vse[0][1],vse[0][2],vse[0][4],vse[0][5],vse[0][3],vse[0][7],uporabnik[0]]) #dodaj v wish
     return template("product_details.html",
                     vse=vse,
                     username=None)
@@ -193,27 +185,10 @@ def zanri_get(zanrid):
                     WHERE h.tag_name = %s
                     ORDER BY title ASC''',[zanrid])
     zanri=cur.fetchall()
-    ORstring='''SELECT  authors, title, average_rating, image_url, book_id FROM books
-                WHERE 1=1\n''' 
-    parameters=[]
-    try:
-        krnekaj= query['search']
-    except:
-        query['search']=''
-    
-    if query['search'] != '': 
-        ORstring += '''AND (LOWER(title) LIKE LOWER(%s) )'''
-        parameters = parameters + ['%'+query['search']+'%']
-        print('%'+query['search']+'%')
-
-    ORstring += "ORDER BY title ASC" #po abecednem redu razvrščeni
-    cur.execute(ORstring,parameters)
-    predmeti=cur.fetchall()
     
     return template('products.html',
                     pagenr= int(pagenr),
                     qstring=qstring,
-                    vse=predmeti,
                     zanri=zanri,
                     query=query,
                     username = uporabnik[1],
