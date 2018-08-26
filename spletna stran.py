@@ -63,7 +63,6 @@ def index():
     print(uporabnik)
 ##    """Vrni dano število knjig (privzeto 9). Rezultat je seznam, katerega
 ##       elementi so oblike [knjiga_id, avtor,naslov,slika]    """
-##    cur.execute("""SELECT (book_id, authors, title, original_publication_year, average_rating,image_url) FROM books ORDER BY average_rating DESC LIMIT %s""", [9])
     seznam=top_9()
     if request.query.logged=="Logout":
         logout()
@@ -149,11 +148,6 @@ def products():
         logout()
         redirect("/books")
     #iz query stringov poberemo vse (filtri in št strani)
-    #ta tabela je potrebna zaradi razlicnih koncnic (jpg, png, etc.)
-##    cur.execute("SELECT book_id,image_url FROM books WHERE book_id IS NOT NULL ",[[i[0] for i in vse]])
-##    slike = cur.fetchall()
-##    slike = {i[0]:i[1] for i in slike}
-##    %pic = slike[vse[i-1][0]] v templateju
     return template('four-col.html',
                     pagenr= int(pagenr),
                     qstring=qstring,
@@ -162,11 +156,6 @@ def products():
                     ime = uporabnik[2],
                     query=query)
 
-
-##@route("/products.html")
-##def main():
-##    redirect("/zanri/<zanrid>")
-    
 
 @get('/zanri/<zanrid>')
 def zanri_get(zanrid):
@@ -298,28 +287,7 @@ def main():
                         username=username,
                         sporocilo=sporocilo
                         )
-##
-##@get('/transakcije/:x/')
-##def transakcije(x):
-##    cur.execute("SELECT * FROM transakcija WHERE znesek > %s ORDER BY znesek, id", [int(x)])
-##    return template('transakcije.html', x=x, transakcije=cur)
-##
-##@get('/dodaj_transakcijo')
-##def dodaj_transakcijo():
-##    return template('dodaj_transakcijo.html', znesek='', racun='', opis='', napaka=None)
-##
-##@post('/dodaj_transakcijo')
-##def dodaj_transakcijo_post():
-##    znesek = request.forms.znesek
-##    racun = request.forms.racun
-##    opis = request.forms.opis
-##    try:
-##        cur.execute("INSERT INTO transakcija (znesek, racun, opis) VALUES (%s, %s, %s)",
-##                    (znesek, racun, opis))
-##    except Exception as ex:
-##        return template('dodaj_transakcijo.html', znesek=znesek, racun=racun, opis=opis,
-##                        napaka = 'Zgodila se je napaka: %s' % ex)
-##    redirect("/")
+
 @get("/login/")
 def login_get():
     """Serviraj formo za login."""
@@ -502,15 +470,7 @@ def top_9(limit=21):
        LIMIT %s
     """, [limit])
     najboljsi = cur.fetchall()
-##    # Rezultat predelamo v nabor.
-####    top_10 = tuple(cur)
-####    # Nabor id-jev knjig, ki jih bomo vrnili
-####    tids = (top[0] for top in top_10)
-####    # Sedaj prenesemo rezultate poizvedbe v slovar
-####    for (tid, username, ime, vsebina) in c:
-####        komentar[tid].append((username, ime, vsebina))
-####    c.close()
-##    # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
+    # Vrnemo nabor, kot je opisano v dokumentaciji funkcije:
     return(najboljsi)
 
 def wish():
