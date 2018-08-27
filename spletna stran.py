@@ -211,6 +211,8 @@ def profil():
     if request.query.logged=="Logout":
         logout()
         redirect("/books")
+    if uporabnik[0] is None:
+        redirect("/register")
     return template('account.html',
                     username = uporabnik[1],
                     ime = uporabnik[2],
