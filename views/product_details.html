@@ -44,6 +44,11 @@ Navigation Bar Section
 <div class="navbar">
 	  <div class="navbar-inner">
 		<div class="container">
+		%if napaka == "Knjiga je uspešno dodana v Wish List!":
+				
+					<h5 style="background: rgba(0, 255, 0, 0.49); text-align: center;">{{napaka}}</h5>
+				
+		%end
 		  <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -56,7 +61,7 @@ Navigation Bar Section
 			  <li class=""><a href="/register">Register</a></li>
 			  <li class=""><a href="/account">Account</a></li>
 			</ul>
-			<form action="#" class="navbar-search pull-left">
+			<form action="all" class="navbar-search pull-left">
 			  <input type="text" placeholder="Search" class="search-query span2">
 			</form>
 			<ul class="nav pull-right">

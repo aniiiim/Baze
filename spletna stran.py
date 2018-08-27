@@ -95,25 +95,31 @@ def item_get(book_id):
   
     return template('product_details.html',
                     vse=vse,
+                    napaka=None,
                     username = uporabnik[1],
                     ime = uporabnik[2])
 
 @post("/item/<book_id>/")
 def item_post(book_id):
     uporabnik = get_user(auto_login = True)
+    napaka=None
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
     if request.query.logged=="Logout":
         logout()
         redirect("/books")
-
-    wish=request.forms.get("wish")
-    if wish is not None:
+   
+    wishek=request.forms.get("wish")
+    
+    if wishek is not None:
         cur.execute('''INSERT INTO wish (book_id,user_id)
-                     VALUES (%s,%s)''',[book_id,uporabnik[0]]) #dodaj v wish
+                               VALUES (%s,%s)''',[book_id,uporabnik[0]]) #dodaj v wish
+        napaka="Knjiga je uspešno dodana v Wish List!"
+                
     return template("product_details.html",
                     vse=vse,
+                    napaka=napaka,
                     username = uporabnik[1],
                     ime = uporabnik[2])
 
