@@ -110,8 +110,8 @@ def item_post(book_id):
 
     wish=request.forms.get("wish")
     if wish is not None:
-        cur.execute('''INSERT INTO wish (book_id,isbn,authors,original_publication_year, original_title, title, image_url,user_id)
-                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',[book_id,vse[0][1],vse[0][2],vse[0][4],vse[0][5],vse[0][3],vse[0][7],uporabnik[0]]) #dodaj v wish
+        cur.execute('''INSERT INTO wish (book_id,user_id)
+                     VALUES (%s,%s)''',[book_id,uporabnik[0]]) #dodaj v wish
     return template("product_details.html",
                     vse=vse,
                     username = uporabnik[1],
@@ -475,9 +475,15 @@ def top_9(limit=21):
 
 def wish():
     uporabnik = get_user()
-    cur.execute(
-    """SELECT * FROM wish
-    JOIN books ON books.book_id=wish.book_id  WHERE user_id=%s
+    cur.execute(""" SELECT b.book_id, b.isbn, b.authors,
+                    b.original_publication_year,
+                    b.original_title, b.title,
+                    b.image_url, u.user_id, w.user_id, w.book_id FROM books AS b
+                    INNER JOIN wish  AS w
+                    ON b.book_id = w.book_id
+                    INNER JOIN uporabnik AS u
+                    ON u.user_id=w.user_id
+                    WHERE w.user_id=%s
     """, [uporabnik[0]])
     wish = cur.fetchall()
     return(wish)

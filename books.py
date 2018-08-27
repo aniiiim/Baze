@@ -47,13 +47,7 @@ def ustvari_wish():
     cur.execute("""
         CREATE TABLE wish(
         book_id INTEGER REFERENCES books(book_id),
-        isbn TEXT,
-        authors TEXT,
-        original_publication_year NUMERIC,
-        original_title TEXT,
-        title TEXT,
-        image_url TEXT ,
-        user_id INTEGER 
+        user_id INTEGER REFERENCES uporabnik(user_id)
         );
         """)
     conn.commit()
