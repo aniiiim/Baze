@@ -111,11 +111,17 @@ def item_post(book_id):
         redirect("/books")
    
     wishek=request.forms.get("wish")
-    
+    cur.execute("SELECT * FROM wish WHERE book_id=%s AND user_id=%s",
+                  [book_id,uporabnik[0]])
+    r = cur.fetchone() 
+    print(r)
     if wishek is not None:
-        cur.execute('''INSERT INTO wish (book_id,user_id)
-                               VALUES (%s,%s)''',[book_id,uporabnik[0]]) #dodaj v wish
-        napaka="Knjiga je uspešno dodana v Wish List!"
+        if r is None:
+            cur.execute('''INSERT INTO wish (book_id,user_id)
+                           VALUES (%s,%s)''',[book_id,uporabnik[0]]) #dodaj v wish
+            napaka="Knjiga je uspešno dodana v Wish List!"
+        else: #pogleda če uprabnik imma že to knjigo v wish listu
+            napaka= "Knjigo ste že dodali v Wish List!"
                 
     return template("product_details.html",
                     vse=vse,
@@ -239,10 +245,6 @@ def main():
 @get('/forget_password')
 def geslo():
     return template('forget_password.html')
-
-
-
-
 
 def password_md5(s):
     """Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
