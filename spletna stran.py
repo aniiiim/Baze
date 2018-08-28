@@ -103,6 +103,7 @@ def item_get(book_id):
 def item_post(book_id):
     uporabnik = get_user(auto_login = True)
     napaka=None
+    barva=None
     cur.execute( ''' SELECT book_id, isbn,  authors, title, original_publication_year, original_title, average_rating,image_url FROM books
          where book_id = %s''',[book_id])
     vse=cur.fetchall()
@@ -113,16 +114,17 @@ def item_post(book_id):
     wishek=request.forms.get("wish")
     cur.execute("SELECT * FROM wish WHERE book_id=%s AND user_id=%s",
                   [book_id,uporabnik[0]])
-    r = cur.fetchone() 
-    print(r)
+    r = cur.fetchone()
+    
     if wishek is not None:
         if r is None:
             cur.execute('''INSERT INTO wish (book_id,user_id)
                            VALUES (%s,%s)''',[book_id,uporabnik[0]]) #dodaj v wish
             napaka="Knjiga je uspešno dodana v Wish List!"
+            barva= rgba(0, 255, 0, 0.49)
         else: #pogleda če uprabnik imma že to knjigo v wish listu
             napaka= "Knjigo ste že dodali v Wish List!"
-                
+            
     return template("product_details.html",
                     vse=vse,
                     napaka=napaka,
